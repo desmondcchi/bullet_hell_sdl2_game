@@ -1,1 +1,5 @@
 .vscode
+bazel-bin
+bazel-bullet_hell_sdl2_game
+bazel-out
+bazel-testlogs
