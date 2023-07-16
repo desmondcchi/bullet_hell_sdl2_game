@@ -1,6 +1,5 @@
-cc_library(
-    name = "test_cc",
-    srcs = ["test.cc"],
-    hdrs = ["test.h"],
-    deps = ["@sdl2//:sdl2"],
+cc_binary(
+    name = "bullet_hell_main",
+    srcs = ["bullet_hell_main.cc"],
+    deps = ["//game:game_cc"],
 )
