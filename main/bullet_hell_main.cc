@@ -5,7 +5,7 @@
 int main(int argc, char* argv[]) {
   game::Game& game = game::Game::GetInstance();
 
-  if (game.Init() == 1) {
+  if (!game.Init()) {
     std::cout << "DEBUG: Error initializing game.\n";
 
     game.Shutdown();

@@ -2,6 +2,7 @@
 #define GAME_GAME_H_
 
 #include "SDL2/SDL.h"
+#include "entities/player.h"
 
 namespace game {
 
@@ -14,8 +15,8 @@ class Game {
     return game_;
   }
 
-  // Initializes the game. Returns 1 if initialization fails.
-  int Init();
+  // Initializes the game. Returns false if initialization fails.
+  bool Init();
 
   // Runs the game loop, which processes inputs, handles events, and renders
   // frames.
@@ -28,15 +29,14 @@ class Game {
   bool IsRunning() const;
 
  private:
-  SDL_Window* window_ = nullptr;
-  SDL_Surface* window_surface_ = nullptr;
-  SDL_Event event_;
+  SDL_Renderer* renderer_;
+  SDL_Window* window_;
   bool is_running_ = false;
+  entities::Player* player_ = nullptr;
 
   Game() = default;
   Game(const Game& game) = delete;
-  void operator=(const Game& game) = delete;
-
+  Game& operator=(const Game& game) = delete;
   ~Game() = default;
 
   // Processes user mouse/keyboard input and events/collisions.
