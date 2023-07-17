@@ -1,8 +1,11 @@
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "game_cc",
     srcs = ["game.cc"],
     hdrs = ["game.h"],
-    deps = ["@sdl2//:sdl2"]
+    deps = [
+        "//entities:player_cc",
+        "@sdl2",
+    ],
 )

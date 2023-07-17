@@ -3,40 +3,36 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
+#include "entities/player.h"
 
 namespace game {
 
-int Game::Init() {
-  // TODO: Do not use SDL_Delay! This causes the window to not show up.
-  
-  std::cout << "DEBUG: Initializing game.\n";
+using ::entities::Player;
+
+bool Game::Init() {
+  // TODO(desmondchi): Do not use SDL_Delay! This causes the window to not show
+  // up.
 
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    std::cout << "DEBUG: Failed to initialize the SDL2 library.\n";
-    return 1;
+    return false;
   }
 
   window_ = SDL_CreateWindow("Bullet Hell Game", SDL_WINDOWPOS_CENTERED,
                              SDL_WINDOWPOS_CENTERED, 800, 600, 0);
-
   if (!window_) {
-    std::cout << "DEBUG: Failed to create window!\n";
-    return 1;
+    return false;
   }
 
-  window_surface_ = SDL_GetWindowSurface(window_);
-
-  if (!window_surface_) {
-    std::cout << "DEBUG: Failed to get window surface!\n";
-    return 1;
+  renderer_ = SDL_CreateRenderer(
+      window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  if (!renderer_) {
+    return false;
   }
 
-  SDL_UpdateWindowSurface(window_);
+  player_ = new Player(renderer_);
+
   is_running_ = true;
-
-  std::cout << "DEBUG: Finished initializing game!\n";
-
-  return 0;
+  return true;
 }
 
 void Game::GameLoop() {
@@ -46,17 +42,15 @@ void Game::GameLoop() {
 }
 
 void Game::Shutdown() {
-  std::cout << "DEBUG: Shutting down game.\n";
   SDL_DestroyWindowSurface(window_);
   SDL_DestroyWindow(window_);
   SDL_Quit();
-  std::cout << "DEBUG: Finished shutting down game!\n";
 }
 
 void Game::HandleEvents() {
-  while (SDL_PollEvent(&event_)) {
-    if (event_.type == SDL_QUIT) {
-      std::cout << "DEBUG: Quitting game.\n";
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_QUIT) {
       is_running_ = false;
     }
   }
@@ -64,9 +58,15 @@ void Game::HandleEvents() {
 
 void Game::Update() {}
 
-void Game::Render() {}
+void Game::Render() {
+  SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
+  SDL_RenderClear(renderer_);
 
-bool Game::IsRunning() const {
-  return is_running_;
+  player_->Render();
+
+  SDL_RenderPresent(renderer_);
 }
+
+bool Game::IsRunning() const { return is_running_; }
+
 }  // namespace game
