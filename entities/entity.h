@@ -16,7 +16,6 @@ class Entity {
 
  protected:
   SDL_Renderer* renderer_;
-  SDL_Window* window_;
   int x_pos_;
   int y_pos_;
   int width_;

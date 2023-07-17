@@ -17,6 +17,13 @@ class Player : public Entity {
   void Render() override;
   int GenerateID() const override;
   SDL_Rect* GetRect() override;
+
+  enum Direction { kNone, kUp, kDown, kLeft, kRight };
+  void Move(Direction dir);
+
+ private:
+  // Update the position and dimensions of the SDL_Rect.
+  void UpdateRect();
 };
 
 }  // namespace entities
