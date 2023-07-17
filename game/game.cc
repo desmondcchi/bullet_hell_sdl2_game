@@ -1,7 +1,5 @@
 #include "game/game.h"
 
-#include <iostream>
-
 #include "SDL2/SDL.h"
 #include "entities/player.h"
 
@@ -17,8 +15,9 @@ bool Game::Init() {
     return false;
   }
 
-  window_ = SDL_CreateWindow("Bullet Hell Game", SDL_WINDOWPOS_CENTERED,
-                             SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+  window_ =
+      SDL_CreateWindow("BenK 47: A Bullet Hell Game", SDL_WINDOWPOS_CENTERED,
+                       SDL_WINDOWPOS_CENTERED, 800, 600, 0);
   if (!window_) {
     return false;
   }
@@ -49,14 +48,32 @@ void Game::Shutdown() {
 
 void Game::HandleEvents() {
   SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_QUIT) {
-      is_running_ = false;
+  if (SDL_PollEvent(&event)) {
+    switch (event.type) {
+      case SDL_QUIT:
+        is_running_ = false;
+        break;
+      case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+          case SDLK_w:
+            player_->Move(entities::Player::Direction::kUp);
+            break;
+          case SDLK_a:
+            player_->Move(entities::Player::Direction::kLeft);
+            break;
+          case SDLK_s:
+            player_->Move(entities::Player::Direction::kDown);
+            break;
+          case SDLK_d:
+            player_->Move(entities::Player::Direction::kRight);
+            break;
+        }
+        break;
     }
   }
 }
 
-void Game::Update() {}
+void Game::Update() { player_->Update(); }
 
 void Game::Render() {
   SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
