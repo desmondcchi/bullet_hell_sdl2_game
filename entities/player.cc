@@ -13,7 +13,7 @@ Player::Player(SDL_Renderer* renderer) {
   y_pos_ = 0;
   width_ = 25;
   height_ = 25;
-  speed_ = 10;
+  speed_ = 5;
   id_ = GenerateID();
 
   UpdateRect();
