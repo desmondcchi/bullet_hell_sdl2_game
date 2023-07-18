@@ -19,7 +19,8 @@ bool Game::Init() {
     return false;
   }
 
-  renderer_ = SDL_CreateRenderer(window_, -1, 0);
+  renderer_ = SDL_CreateRenderer(
+      window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (!renderer_) {
     return false;
   }
@@ -48,38 +49,22 @@ void Game::HandleEvents() {
       case SDL_QUIT:
         is_running_ = false;
         break;
-        // case SDL_KEYDOWN:
-        //   switch (event_.key.keysym.sym) {
-        //     case SDLK_w:
-        //       player_->Move(entities::Player::Direction::kUp);
-        //       break;
-        //     case SDLK_a:
-        //       player_->Move(entities::Player::Direction::kLeft);
-        //       break;
-        //     case SDLK_s:
-        //       player_->Move(entities::Player::Direction::kDown);
-        //       break;
-        //     case SDLK_d:
-        //       player_->Move(entities::Player::Direction::kRight);
-        //       break;
-        //   }
-        //   break;
     }
+  }
 
-    const Uint8* keystate = SDL_GetKeyboardState(NULL);
+  const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
-    if (keystate[SDL_SCANCODE_W]) {
-      player_->Move(entities::Player::Direction::kUp);
-    }
-    if (keystate[SDL_SCANCODE_A]) {
-      player_->Move(entities::Player::Direction::kLeft);
-    }
-    if (keystate[SDL_SCANCODE_S]) {
-      player_->Move(entities::Player::Direction::kDown);
-    }
-    if (keystate[SDL_SCANCODE_D]) {
-      player_->Move(entities::Player::Direction::kRight);
-    }
+  if (keystate[SDL_SCANCODE_W]) {
+    player_->Move(entities::Player::Direction::kUp);
+  }
+  if (keystate[SDL_SCANCODE_A]) {
+    player_->Move(entities::Player::Direction::kLeft);
+  }
+  if (keystate[SDL_SCANCODE_S]) {
+    player_->Move(entities::Player::Direction::kDown);
+  }
+  if (keystate[SDL_SCANCODE_D]) {
+    player_->Move(entities::Player::Direction::kRight);
   }
 }
 

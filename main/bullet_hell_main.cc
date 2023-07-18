@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
-// #include "absl/flags/flag.h"
+#include "absl/flags/flag.h"
 #include "game/game.h"
 #include "absl/flags/flag.h"
 
