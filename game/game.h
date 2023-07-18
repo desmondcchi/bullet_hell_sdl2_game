@@ -34,8 +34,6 @@ class Game {
   SDL_Event event_;
   bool is_running_ = false;
   entities::Player* player_ = nullptr;
-  const int fps_ = 60;
-  const int ticks_per_frame_ = 1000 / fps_;
 
   Game() = default;
   Game(const Game& game) = delete;
