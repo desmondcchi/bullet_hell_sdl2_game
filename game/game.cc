@@ -8,9 +8,6 @@ namespace game {
 using ::entities::Player;
 
 bool Game::Init() {
-  // TODO(desmondchi): Do not use SDL_Delay! This causes the window to not show
-  // up.
-
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     return false;
   }
@@ -22,8 +19,7 @@ bool Game::Init() {
     return false;
   }
 
-  renderer_ = SDL_CreateRenderer(
-      window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  renderer_ = SDL_CreateRenderer(window_, -1, 0);
   if (!renderer_) {
     return false;
   }
@@ -47,28 +43,42 @@ void Game::Shutdown() {
 }
 
 void Game::HandleEvents() {
-  SDL_Event event;
-  if (SDL_PollEvent(&event)) {
-    switch (event.type) {
+  if (SDL_PollEvent(&event_)) {
+    switch (event_.type) {
       case SDL_QUIT:
         is_running_ = false;
         break;
-      case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
-          case SDLK_w:
-            player_->Move(entities::Player::Direction::kUp);
-            break;
-          case SDLK_a:
-            player_->Move(entities::Player::Direction::kLeft);
-            break;
-          case SDLK_s:
-            player_->Move(entities::Player::Direction::kDown);
-            break;
-          case SDLK_d:
-            player_->Move(entities::Player::Direction::kRight);
-            break;
-        }
-        break;
+        // case SDL_KEYDOWN:
+        //   switch (event_.key.keysym.sym) {
+        //     case SDLK_w:
+        //       player_->Move(entities::Player::Direction::kUp);
+        //       break;
+        //     case SDLK_a:
+        //       player_->Move(entities::Player::Direction::kLeft);
+        //       break;
+        //     case SDLK_s:
+        //       player_->Move(entities::Player::Direction::kDown);
+        //       break;
+        //     case SDLK_d:
+        //       player_->Move(entities::Player::Direction::kRight);
+        //       break;
+        //   }
+        //   break;
+    }
+
+    const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+    if (keystate[SDL_SCANCODE_W]) {
+      player_->Move(entities::Player::Direction::kUp);
+    }
+    if (keystate[SDL_SCANCODE_A]) {
+      player_->Move(entities::Player::Direction::kLeft);
+    }
+    if (keystate[SDL_SCANCODE_S]) {
+      player_->Move(entities::Player::Direction::kDown);
+    }
+    if (keystate[SDL_SCANCODE_D]) {
+      player_->Move(entities::Player::Direction::kRight);
     }
   }
 }

@@ -5,5 +5,6 @@ cc_binary(
     srcs = ["bullet_hell_main.cc"],
     deps = [
         "//game:game_cc",
+        "@com_google_absl//absl/flags:flag",
     ],
 )
