@@ -8,7 +8,7 @@ namespace projectiles {
 
 class CarrotGunProjectile : Projectile {
  public:
-  CarrotGunProjectile(SDL_Renderer* renderer);
+  CarrotGunProjectile(int x_pos, int y_pos, SDL_Renderer* renderer);
   CarrotGunProjectile(const CarrotGunProjectile& projectile) = default;
   CarrotGunProjectile& operator=(const CarrotGunProjectile& projectile) =
       default;

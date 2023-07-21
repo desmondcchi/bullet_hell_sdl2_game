@@ -2,8 +2,14 @@
 
 namespace projectiles {
 
-CarrotGunProjectile::CarrotGunProjectile(SDL_Renderer* renderer) {
+CarrotGunProjectile::CarrotGunProjectile(int x_pos, int y_pos,
+                                         SDL_Renderer* renderer) {
   renderer_ = renderer;
+
+  width_ = 5;
+  height_ = 5;
+  x_pos_ = x_pos;
+  y_pos_ = y_pos;
 }
 
 void CarrotGunProjectile::HandleMovement() {}
