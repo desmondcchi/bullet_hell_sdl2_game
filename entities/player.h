@@ -14,6 +14,7 @@ class Player : public Entity {
   ~Player() = default;
 
   void HandleMovement(int screen_width, int screen_height);
+
   void Update() override;
   void Render() override;
   int GenerateID() const override;

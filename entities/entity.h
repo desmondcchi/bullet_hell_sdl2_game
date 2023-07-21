@@ -20,7 +20,7 @@ class Entity {
   int y_pos_;
   int width_;
   int height_;
-  float speed_;
+  int speed_;
   SDL_Rect rect_;
   int id_;
 };
