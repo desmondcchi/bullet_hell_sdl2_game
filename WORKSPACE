@@ -1,6 +1,12 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
+  name = "com_google_googletest",
+  urls = ["https://github.com/google/googletest/archive/1ed6a8c67a0bd675149ece27bbec0ef1759854cf.zip"],
+  strip_prefix = "googletest-1ed6a8c67a0bd675149ece27bbec0ef1759854cf",
+)
+
+http_archive(
     name = "com_google_absl",
     strip_prefix = "abseil-cpp-5be22f98733c674d532598454ae729253bc53e82",
     urls = ["https://github.com/abseil/abseil-cpp/archive/5be22f98733c674d532598454ae729253bc53e82.zip"],
