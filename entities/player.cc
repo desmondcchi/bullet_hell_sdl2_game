@@ -19,9 +19,32 @@ Player::Player(SDL_Renderer* renderer) {
   UpdateRect();
 }
 
-void Player::Update() {
-  UpdateRect();
+void Player::HandleMovement(int screen_width, int screen_height) {
+  const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+  if (keystate[SDL_SCANCODE_W]) {
+    if (y_pos_ - speed_ >= 0) {
+      Move(entities::Player::Direction::kUp);
+    }
+  }
+  if (keystate[SDL_SCANCODE_A]) {
+    if (x_pos_ - speed_ >= 0) {
+      Move(entities::Player::Direction::kLeft);
+    }
+  }
+  if (keystate[SDL_SCANCODE_S]) {
+    if (y_pos_ + speed_ <= screen_height - height_) {
+      Move(entities::Player::Direction::kDown);
+    }
+  }
+  if (keystate[SDL_SCANCODE_D]) {
+    if (x_pos_ + speed_ <= screen_width - width_) {
+      Move(entities::Player::Direction::kRight);
+    }
+  }
 }
+
+void Player::Update() { UpdateRect(); }
 
 void Player::Render() {
   SDL_SetRenderDrawColor(renderer_, 0, 255, 0, 255);

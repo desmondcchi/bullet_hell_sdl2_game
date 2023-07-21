@@ -7,6 +7,9 @@ namespace game {
 
 using ::entities::Player;
 
+constexpr int kScreenWidth = 800;
+constexpr int kScreenHeight = 600;
+
 bool Game::Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     return false;
@@ -14,7 +17,7 @@ bool Game::Init() {
 
   window_ =
       SDL_CreateWindow("BenK 47: A Bullet Hell Game", SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+                       SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, 0);
   if (!window_) {
     return false;
   }
@@ -52,26 +55,13 @@ void Game::HandleEvents() {
     }
   }
 
-  const Uint8* keystate = SDL_GetKeyboardState(NULL);
-
-  if (keystate[SDL_SCANCODE_W]) {
-    player_->Move(entities::Player::Direction::kUp);
-  }
-  if (keystate[SDL_SCANCODE_A]) {
-    player_->Move(entities::Player::Direction::kLeft);
-  }
-  if (keystate[SDL_SCANCODE_S]) {
-    player_->Move(entities::Player::Direction::kDown);
-  }
-  if (keystate[SDL_SCANCODE_D]) {
-    player_->Move(entities::Player::Direction::kRight);
-  }
+  player_->HandleMovement(kScreenWidth, kScreenHeight);
 }
 
 void Game::Update() { player_->Update(); }
 
 void Game::Render() {
-  SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
+  SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
   SDL_RenderClear(renderer_);
 
   player_->Render();
