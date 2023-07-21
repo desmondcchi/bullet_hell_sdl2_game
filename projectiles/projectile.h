@@ -1,6 +1,8 @@
 #ifndef PROJECTILES_PROJECTILE_H_
 #define PROJECTILES_PROJECTILE_H_
 
+#include "SDL2/sdl.h"
+
 namespace projectiles {
 
 class Projectile {
