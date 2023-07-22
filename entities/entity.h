@@ -15,7 +15,6 @@ class Entity {
   virtual void Update() = 0;
   virtual void Render() = 0;
   virtual int GenerateID() const = 0;
-  virtual SDL_FRect* GetRect() = 0;
 
  protected:
   SDL_Renderer* renderer_;
@@ -23,7 +22,9 @@ class Entity {
   float width_ = 0.0f;
   float height_ = 0.0f;
   float speed_ = 0.0f;
-  SDL_FRect rect_;
+  SDL_Texture* texture_;
+  SDL_Rect src_rect_;
+  SDL_FRect dest_rect_;
   int id_;
 };
 

@@ -18,7 +18,6 @@ class Player : public Entity {
   void Update() override;
   void Render() override;
   int GenerateID() const override;
-  SDL_FRect* GetRect() override;
 
   enum Direction { kNone, kUp, kDown, kLeft, kRight };
   void Move(Direction dir);
