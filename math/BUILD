@@ -1,29 +1,18 @@
-cc_library(
-    name = "coordinate_cc",
-    hdrs = ["coordinate.h"],
-)
-
-cc_test(
-    name = "coordinate_test",
-    srcs = ["coordinate_test.cc"],
-    deps = [
-        ":coordinate_cc",
-        "@com_google_googletest//:gtest_main",
-    ],
-)
+package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "vector_cc",
     srcs = ["vector.cc"],
     hdrs = ["vector.h"],
-    deps = [":coordinate_cc"]
+    deps = [
+        "@sdl2",
+    ],
 )
 
 cc_test(
     name = "vector_test",
     srcs = ["vector_test.cc"],
     deps = [
-        ":coordinate_cc",
         ":vector_cc",
         "@com_google_googletest//:gtest_main",
     ],

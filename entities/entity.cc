@@ -1,9 +1,13 @@
 #include "entities/entity.h"
 
+#include "SDL2/SDL.h"
+
 namespace entities {
 
-float Entity::GetXPos() const { return x_pos_; }
+SDL_FPoint Entity::GetPosition() const { return position_; }
 
-float Entity::GetYPos() const { return y_pos_; }
+float Entity::GetWidth() const { return width_; }
+
+float Entity::GetHeight() const { return height_; }
 
 }  // namespace entities

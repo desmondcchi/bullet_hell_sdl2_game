@@ -2,13 +2,17 @@
 
 #include "SDL2/SDL.h"
 #include "entities/player.h"
+#include "projectiles/carrot_gun_projectile.h"
+#include "projectiles/projectile.h"
 
 namespace game {
 
 using ::entities::Player;
+using ::projectiles::CarrotGunProjectile;
+using ::projectiles::Projectile;
 
-constexpr int kScreenWidth = 800;
-constexpr int kScreenHeight = 600;
+constexpr int kScreenWidth = 1200;
+constexpr int kScreenHeight = 800;
 
 bool Game::Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -47,22 +51,57 @@ void Game::Shutdown() {
 }
 
 void Game::HandleEvents() {
+  SDL_Point temp;
+  SDL_GetMouseState(&temp.x, &temp.y);
+  SDL_FPoint mouse_position{static_cast<float>(temp.x),
+                            static_cast<float>(temp.y)};
+
   if (SDL_PollEvent(&event_)) {
     switch (event_.type) {
       case SDL_QUIT:
         is_running_ = false;
         break;
+      case SDL_MOUSEBUTTONDOWN:
+        projectiles_.push_back(std::make_unique<CarrotGunProjectile>(
+            SDL_FPoint{player_->GetPosition().x + player_->GetWidth() / 2,
+                       player_->GetPosition().y + player_->GetHeight() / 2},
+            mouse_position, renderer_));
+        break;
     }
   }
 
+  // Check for collisions.
+  for (std::unique_ptr<Projectile>& projectile : projectiles_) {
+    if (projectile->CheckCollision(kScreenWidth, kScreenHeight)) {
+      projectile.reset(nullptr);
+      projectiles_.erase(
+          std::remove(projectiles_.begin(), projectiles_.end(), projectile));
+      return;
+    }
+  }
+
+  // Handle movement.
   player_->HandleMovement(kScreenWidth, kScreenHeight);
+
+  for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
+    projectile->HandleMovement();
+  }
 }
 
-void Game::Update() { player_->Update(); }
+void Game::Update() {
+  player_->Update();
+  for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
+    projectile->Update();
+  }
+}
 
 void Game::Render() {
   SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
   SDL_RenderClear(renderer_);
+
+  for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
+    projectile->Render();
+  }
 
   player_->Render();
 

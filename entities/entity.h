@@ -7,21 +7,23 @@ namespace entities {
 
 class Entity {
  public:
-  float GetXPos() const;
-  float GetYPos() const;
+  virtual ~Entity() = default;
+
+  SDL_FPoint GetPosition() const;
+  float GetWidth() const;
+  float GetHeight() const;
   virtual void Update() = 0;
   virtual void Render() = 0;
   virtual int GenerateID() const = 0;
-  virtual SDL_Rect* GetRect() = 0;
+  virtual SDL_FRect* GetRect() = 0;
 
  protected:
   SDL_Renderer* renderer_;
-  int x_pos_;
-  int y_pos_;
-  int width_;
-  int height_;
-  int speed_;
-  SDL_Rect rect_;
+  SDL_FPoint position_;
+  float width_ = 0.0f;
+  float height_ = 0.0f;
+  float speed_ = 0.0f;
+  SDL_FRect rect_;
   int id_;
 };
 

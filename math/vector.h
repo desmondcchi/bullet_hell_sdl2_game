@@ -3,32 +3,31 @@
 
 #include <memory>
 
-#include "math/coordinate.h"
+#include "SDL2/SDL.h"
 
 namespace math {
 
 class Vector {
  public:
-  Vector(Coordinate start, Coordinate end);
+  Vector() = default;
+  Vector(SDL_FPoint start, SDL_FPoint end);
   Vector(float x, float y);
   Vector(const Vector& vector) = default;
   Vector& operator=(const Vector& vector) = default;
   Vector(Vector&& vector) = default;
-  
+
   Vector operator+(const Vector& vector) const;
   Vector operator-(const Vector& vector) const;
   Vector operator/(float num) const;
-  float operator*(const Vector& vector) const; // Dot Product
+  float operator*(const Vector& vector) const;  // Dot Product
   bool operator==(const Vector& vector) const;
-  
 
   ~Vector() = default;
 
   Vector GetUnitVector() const;
 
-  float x_;
-  float y_;
-  float magnitude_;
+  SDL_FPoint position_{.x = 0.0f, .y = 0.0f};
+  float magnitude_ = 0.0f;
 
  private:
   float ComputeMagnitude(float x, float y);
