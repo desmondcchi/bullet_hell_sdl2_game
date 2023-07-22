@@ -3,57 +3,56 @@
 #include <cmath>
 #include <memory>
 
-#include "math/coordinate.h"
+#include "SDL2/SDL.h"
 
 namespace math {
 
-Vector::Vector(Coordinate start, Coordinate end) {
-  x_ = end.x - start.x;
-  y_ = end.y - start.y;
-  magnitude_ = ComputeMagnitude(x_, y_);
+Vector::Vector(SDL_FPoint start, SDL_FPoint end) {
+  position_.x = end.x - start.x;
+  position_.y = end.y - start.y;
+  magnitude_ = ComputeMagnitude(position_.x, position_.y);
 }
 
 Vector::Vector(float x, float y) {
-  x_ = x;
-  y_ = y;
+  position_.x = x;
+  position_.y = y;
   magnitude_ = ComputeMagnitude(x, y);
 }
 
 Vector Vector::operator+(const Vector& vector) const {
-  return Vector(x_ + vector.x_, y_ + vector.y_);
+  return Vector(position_.x + vector.position_.x,
+                position_.y + vector.position_.y);
 }
 
 Vector Vector::operator-(const Vector& vector) const {
-  return Vector(x_ - vector.x_, y_ - vector.y_);
+  return Vector(position_.x - vector.position_.x,
+                position_.y - vector.position_.y);
 }
 
-Vector Vector::operator/(float num) const {
-  return Vector(x_ / num, y_ / num);
-}
+Vector Vector::operator/(float num) const { return Vector(position_.x / num, position_.y / num); }
 
 bool Vector::operator==(const Vector& vector) const {
-  return x_ == vector.x_ && y_ == vector.y_ && magnitude_ == vector.magnitude_;
+  return position_.x == vector.position_.x && position_.y == vector.position_.y && magnitude_ == vector.magnitude_;
 }
 
 // Dot Product
 float Vector::operator*(const Vector& vector) const {
-  return x_ * vector.x_ + y_ * vector.y_;
+  return position_.x * vector.position_.x + position_.y * vector.position_.y;
 }
 
 float DotProduct(const Vector& vector_a, const Vector& vector_b) {
-  return vector_a.x_ * vector_b.x_ + vector_a.y_ * vector_b.y_;
+  return vector_a.position_.x * vector_b.position_.x + vector_a.position_.y * vector_b.position_.y;
 }
 
-float CrossProduct(const Vector& vector_a,
-                           const Vector& vector_b) {
-  return vector_a.x_ * vector_b.y_ - vector_a.y_ * vector_b.x_;
+float CrossProduct(const Vector& vector_a, const Vector& vector_b) {
+  return vector_a.position_.x * vector_b.position_.y - vector_a.position_.y * vector_b.position_.x;
 }
 
 Vector Vector::GetUnitVector() const {
-	/*
-	Normalization Formula:
-		Unit Vector = Vector / ||Vector|| <- Magnitude
-	*/
+  /*
+  Normalization Formula:
+          Unit Vector = Vector / ||Vector|| <- Magnitude
+  */
 
   return *this / magnitude_;
 }

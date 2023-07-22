@@ -6,6 +6,8 @@ cc_library(
     hdrs = ["game.h"],
     deps = [
         "//entities:player_cc",
+        "//projectiles:carrot_gun_projectile_cc",
+        "//projectiles:projectile_cc",
         "@sdl2",
     ],
 )

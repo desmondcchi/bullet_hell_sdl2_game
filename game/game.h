@@ -1,8 +1,12 @@
 #ifndef GAME_GAME_H_
 #define GAME_GAME_H_
 
+#include <memory>
+#include <vector>
+
 #include "SDL2/SDL.h"
 #include "entities/player.h"
+#include "projectiles/projectile.h"
 
 namespace game {
 
@@ -33,7 +37,9 @@ class Game {
   SDL_Window* window_;
   SDL_Event event_;
   bool is_running_ = false;
+
   entities::Player* player_ = nullptr;
+  std::vector<std::unique_ptr<projectiles::Projectile>> projectiles_;
 
   Game() = default;
   Game(const Game& game) = delete;

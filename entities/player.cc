@@ -9,10 +9,9 @@ namespace entities {
 Player::Player(SDL_Renderer* renderer) {
   renderer_ = renderer;
 
-  x_pos_ = 0;
-  y_pos_ = 0;
-  width_ = 25;
-  height_ = 25;
+  position_ = {.x = 0, .y = 0};
+  width_ = 50;
+  height_ = 50;
   speed_ = 5;
   id_ = GenerateID();
 
@@ -23,22 +22,22 @@ void Player::HandleMovement(int screen_width, int screen_height) {
   const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
   if (keystate[SDL_SCANCODE_W]) {
-    if (y_pos_ - speed_ >= 0) {
+    if (position_.y - speed_ >= 0) {
       Move(entities::Player::Direction::kUp);
     }
   }
   if (keystate[SDL_SCANCODE_A]) {
-    if (x_pos_ - speed_ >= 0) {
+    if (position_.x - speed_ >= 0) {
       Move(entities::Player::Direction::kLeft);
     }
   }
   if (keystate[SDL_SCANCODE_S]) {
-    if (y_pos_ + speed_ <= screen_height - height_) {
+    if (position_.y + speed_ <= screen_height - height_) {
       Move(entities::Player::Direction::kDown);
     }
   }
   if (keystate[SDL_SCANCODE_D]) {
-    if (x_pos_ + speed_ <= screen_width - width_) {
+    if (position_.x + speed_ <= screen_width - width_) {
       Move(entities::Player::Direction::kRight);
     }
   }
@@ -48,7 +47,7 @@ void Player::Update() { UpdateRect(); }
 
 void Player::Render() {
   SDL_SetRenderDrawColor(renderer_, 0, 255, 0, 255);
-  SDL_RenderFillRect(renderer_, GetRect());
+  SDL_RenderFillRectF(renderer_, &rect_);
 }
 
 int Player::GenerateID() const {
@@ -56,21 +55,21 @@ int Player::GenerateID() const {
   return ++id;
 }
 
-SDL_Rect* Player::GetRect() { return &rect_; }
+SDL_FRect* Player::GetRect() { return &rect_; }
 
 void Player::Move(Direction dir) {
   switch (dir) {
     case Direction::kUp:
-      y_pos_ -= speed_;
+      position_.y -= speed_;
       break;
     case Direction::kDown:
-      y_pos_ += speed_;
+      position_.y += speed_;
       break;
     case Direction::kLeft:
-      x_pos_ -= speed_;
+      position_.x -= speed_;
       break;
     case Direction::kRight:
-      x_pos_ += speed_;
+      position_.x += speed_;
       break;
     default:
       break;
@@ -78,8 +77,8 @@ void Player::Move(Direction dir) {
 }
 
 void Player::UpdateRect() {
-  rect_.x = x_pos_;
-  rect_.y = y_pos_;
+  rect_.x = position_.x;
+  rect_.y = position_.y;
   rect_.w = width_;
   rect_.h = height_;
 }
