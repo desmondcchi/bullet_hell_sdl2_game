@@ -13,13 +13,14 @@ class Vector {
   Vector(float x, float y);
   Vector(const Vector& vector) = default;
   Vector& operator=(const Vector& vector) = default;
+  Vector(Vector&& vector) = default;
   
   Vector operator+(const Vector& vector) const;
   Vector operator-(const Vector& vector) const;
   Vector operator/(float num) const;
   float operator*(const Vector& vector) const; // Dot Product
-  float DotProduct(const Vector& vector_a, const Vector& vector_b) const;
-  float CrossProduct(const Vector& vector_a, const Vector& vector_b) const;
+  bool operator==(const Vector& vector) const;
+  
 
   ~Vector() = default;
 
@@ -32,6 +33,9 @@ class Vector {
  private:
   float ComputeMagnitude(float x, float y);
 };
+
+float DotProduct(const Vector& vector_a, const Vector& vector_b);
+float CrossProduct(const Vector& vector_a, const Vector& vector_b);
 
 }  // namespace math
 

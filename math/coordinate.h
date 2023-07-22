@@ -4,13 +4,9 @@
 namespace math {
 
 struct Coordinate {
-  Coordinate(float x, float y);
-  Coordinate(const Coordinate& coord) = default;
-  Coordinate& operator=(const Coordinate& coord) = default;
-  ~Coordinate() = default;
-
-  float x_;
-  float y_;
+  Coordinate(float x, float y) : x(x), y(y) {};
+  float x;
+  float y;
 };
 
 }  // namespace math

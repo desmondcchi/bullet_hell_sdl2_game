@@ -8,8 +8,8 @@
 namespace math {
 
 Vector::Vector(Coordinate start, Coordinate end) {
-  x_ = end.x_ - start.x_;
-  y_ = end.y_ - start.y_;
+  x_ = end.x - start.x;
+  y_ = end.y - start.y;
   magnitude_ = ComputeMagnitude(x_, y_);
 }
 
@@ -20,40 +20,46 @@ Vector::Vector(float x, float y) {
 }
 
 Vector Vector::operator+(const Vector& vector) const {
-  return Vector(this->x_ + vector.x_, this->y_ + vector.y_);
+  return Vector(x_ + vector.x_, y_ + vector.y_);
 }
 
 Vector Vector::operator-(const Vector& vector) const {
-  return Vector(this->x_ - vector.x_, this->y_ - vector.y_);
+  return Vector(x_ - vector.x_, y_ - vector.y_);
 }
 
 Vector Vector::operator/(float num) const {
-  return Vector(this->x_ / num, this->y_ / num);
+  return Vector(x_ / num, y_ / num);
+}
+
+bool Vector::operator==(const Vector& vector) const {
+  return x_ == vector.x_ && y_ == vector.y_ && magnitude_ == vector.magnitude_;
 }
 
 // Dot Product
 float Vector::operator*(const Vector& vector) const {
-  return this->x_ * vector.x_ + this->y_ * vector.y_;
+  return x_ * vector.x_ + y_ * vector.y_;
 }
 
-float Vector::DotProduct(const Vector& vector_a, const Vector& vector_b) const {
+float DotProduct(const Vector& vector_a, const Vector& vector_b) {
   return vector_a.x_ * vector_b.x_ + vector_a.y_ * vector_b.y_;
 }
 
-float Vector::CrossProduct(const Vector& vector_a,
-                           const Vector& vector_b) const {
+float CrossProduct(const Vector& vector_a,
+                           const Vector& vector_b) {
   return vector_a.x_ * vector_b.y_ - vector_a.y_ * vector_b.x_;
 }
 
 Vector Vector::GetUnitVector() const {
 	/*
 	Normalization Formula:
-		Unit Vector = Vector / |Vector| <- Magnitude
+		Unit Vector = Vector / ||Vector|| <- Magnitude
 	*/
+
+  return *this / magnitude_;
 }
 
-float ComputeMagnitude(float x, float y) {
-  return std::sqrt(std::pow(x, 2) + std::pow(x, 2));
+float Vector::ComputeMagnitude(float x, float y) {
+  return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 }
 
 }  // namespace math
