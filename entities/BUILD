@@ -16,7 +16,7 @@ cc_library(
     name = "player_cc",
     srcs = ["player.cc"],
     hdrs = ["player.h"],
-    data = ["//assets/player:ben_forward_face_png"],
+    data = ["//assets/player:player_asset"],
     deps = [
         "//entities:entity_cc",
         "@sdl2",
