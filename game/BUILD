@@ -11,3 +11,13 @@ cc_library(
         "@sdl2",
     ],
 )
+
+cc_library(
+    name = "texture_manager_cc",
+    srcs = ["texture_manager.cc"],
+    hdrs = ["texture_manager.h"],
+    deps = [
+        "@com_google_absl//absl/strings:string_view",
+        "@sdl2",
+    ],
+)

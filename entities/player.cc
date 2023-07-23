@@ -1,17 +1,17 @@
 #include "entities/player.h"
 
-#include <iostream>
-
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 
 namespace entities {
 
 Player::Player(SDL_Renderer* renderer) {
   renderer_ = renderer;
+  texture_ = IMG_LoadTexture(renderer_, "assets/player/ben_forward_face.png");
 
   position_ = {.x = 0, .y = 0};
-  width_ = 50;
-  height_ = 50;
+  width_ = 100;
+  height_ = 100;
   speed_ = 5;
   id_ = GenerateID();
 
@@ -46,16 +46,13 @@ void Player::HandleMovement(int screen_width, int screen_height) {
 void Player::Update() { UpdateRect(); }
 
 void Player::Render() {
-  SDL_SetRenderDrawColor(renderer_, 0, 255, 0, 255);
-  SDL_RenderFillRectF(renderer_, &rect_);
+  SDL_RenderCopyF(renderer_, texture_, NULL, &dest_rect_);
 }
 
 int Player::GenerateID() const {
   static int id = 0;
   return ++id;
 }
-
-SDL_FRect* Player::GetRect() { return &rect_; }
 
 void Player::Move(Direction dir) {
   switch (dir) {
@@ -77,10 +74,10 @@ void Player::Move(Direction dir) {
 }
 
 void Player::UpdateRect() {
-  rect_.x = position_.x;
-  rect_.y = position_.y;
-  rect_.w = width_;
-  rect_.h = height_;
+  dest_rect_.x = position_.x;
+  dest_rect_.y = position_.y;
+  dest_rect_.w = width_;
+  dest_rect_.h = height_;
 }
 
 }  // namespace entities
