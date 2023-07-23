@@ -7,6 +7,7 @@
 #include "SDL2/SDL.h"
 #include "entities/player.h"
 #include "projectiles/projectile.h"
+#include "game/audio_manager.h"
 
 namespace game {
 
@@ -37,6 +38,8 @@ class Game {
   SDL_Window* window_;
   SDL_Event event_;
   bool is_running_ = false;
+
+  std::unique_ptr<AudioManager> audio_manager_;
 
   entities::Player* player_ = nullptr;
   std::vector<std::unique_ptr<projectiles::Projectile>> projectiles_;

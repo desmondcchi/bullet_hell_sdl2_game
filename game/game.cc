@@ -1,6 +1,7 @@
 #include "game/game.h"
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_mixer.h"
 #include "entities/player.h"
 #include "projectiles/carrot_gun_projectile.h"
 #include "projectiles/projectile.h"
@@ -31,6 +32,14 @@ bool Game::Init() {
   if (!renderer_) {
     return false;
   }
+
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+    return false;
+  }
+
+  // Add audio files here.
+  audio_manager_ = std::make_unique<AudioManager>();
+  audio_manager_->AddAudio("assets/player/ben.mp3");
 
   player_ = new Player(renderer_);
 
@@ -66,6 +75,7 @@ void Game::HandleEvents() {
             SDL_FPoint{player_->GetPosition().x + player_->GetWidth() / 2,
                        player_->GetPosition().y + player_->GetHeight() / 2},
             mouse_position, renderer_));
+        audio_manager_->PlayAudio("assets/player/ben.mp3");
         break;
     }
   }
