@@ -24,5 +24,5 @@ http_archive(
 new_local_repository(
     name = "sdl2",
     build_file = "sdl2.BUILD",
-    path = "/opt/homebrew/Cellar/sdl2/2.28.1",
+    path = "/opt/homebrew/Cellar/sdl2/2.28.2",
 )
