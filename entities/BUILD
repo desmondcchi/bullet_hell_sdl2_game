@@ -19,6 +19,7 @@ cc_library(
     data = ["//assets/player:player_asset"],
     deps = [
         "//entities:entity_cc",
+        "//math:vector_cc",
         "@sdl2",
     ],
 )

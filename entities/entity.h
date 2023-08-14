@@ -9,12 +9,14 @@ class Entity {
  public:
   virtual ~Entity() = default;
 
+  enum Direction { kNone, kUp, kDown, kLeft, kRight };
+
   SDL_FPoint GetPosition() const;
   float GetWidth() const;
   float GetHeight() const;
+  virtual void Move(Direction dir) = 0;
   virtual void Update() = 0;
   virtual void Render() = 0;
-  virtual int GenerateID() const = 0;
 
  protected:
   SDL_Renderer* renderer_;
@@ -25,7 +27,6 @@ class Entity {
   SDL_Texture* texture_;
   SDL_Rect src_rect_;
   SDL_FRect dest_rect_;
-  int id_;
 };
 
 }  // namespace entities
