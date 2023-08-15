@@ -1,22 +1,22 @@
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "projectile_cc",
+    name = "projectile",
     srcs = ["projectile.cc"],
     hdrs = ["projectile.h"],
     deps = [
-        "//math:vector_cc",
+        "//math:vector",
         "@sdl2",
     ],
 )
 
 cc_library(
-    name = "carrot_gun_projectile_cc",
+    name = "carrot_gun_projectile",
     srcs = ["carrot_gun_projectile.cc"],
     hdrs = ["carrot_gun_projectile.h"],
     deps = [
-        ":projectile_cc",
-        "//math:vector_cc",
+        ":projectile",
+        "//math:vector",
         "@sdl2",
     ],
 )
