@@ -3,6 +3,7 @@
 
 #include "SDL2/SDL.h"
 #include "entities/entity.h"
+#include "math/vector.h"
 
 namespace entities {
 
@@ -17,8 +18,6 @@ class Player : public Entity {
 
   void Update() override;
   void Render() override;
-
-  void Move(Direction dir) override;
 
  private:
   // Update the position and dimensions of the SDL_Rect.

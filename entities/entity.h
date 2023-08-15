@@ -14,7 +14,6 @@ class Entity {
   SDL_FPoint GetPosition() const;
   float GetWidth() const;
   float GetHeight() const;
-  virtual void Move(Direction dir) = 0;
   virtual void Update() = 0;
   virtual void Render() = 0;
 
