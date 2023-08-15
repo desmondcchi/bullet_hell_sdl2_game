@@ -5,7 +5,7 @@ cc_library(
     srcs = ["vector.cc"],
     hdrs = ["vector.h"],
     deps = [
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )
 

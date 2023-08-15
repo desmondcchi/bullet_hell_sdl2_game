@@ -6,7 +6,7 @@ cc_library(
     hdrs = ["projectile.h"],
     deps = [
         "//math:vector",
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )
 
@@ -17,6 +17,6 @@ cc_library(
     deps = [
         ":projectile",
         "//math:vector",
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )
