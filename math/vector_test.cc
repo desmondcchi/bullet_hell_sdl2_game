@@ -59,12 +59,31 @@ TEST(VectorTest, Addition) {
   EXPECT_NEAR((vector_a + vector_b).position_.y, 0.2f, 0.01f);
 }
 
+TEST(VectorTest, AdditionAssignment) {
+  Vector vector_a(1.2f, 2.5f);
+  Vector vector_b(2.3f, -2.3f);
+
+  vector_a += vector_b;
+  EXPECT_NEAR(vector_a.position_.x, 3.5f, 0.01f);
+  EXPECT_NEAR(vector_a.position_.y, 0.2f, 0.01f);
+}
+
 TEST(VectorTest, Subtraction) {
   Vector vector_a(1.2f, 2.5f);
   Vector vector_b(2.3f, -2.3f);
 
   EXPECT_NEAR((vector_a - vector_b).position_.x, -1.1f, 0.01f);
   EXPECT_NEAR((vector_a - vector_b).position_.y, 4.8f, 0.01f);
+}
+
+TEST(VectorTest, SubtractionAssignment) {
+  Vector vector_a(1.2f, 2.5f);
+  Vector vector_b(2.3f, -2.3f);
+
+  vector_a -= vector_b;
+
+  EXPECT_NEAR(vector_a.position_.x, -1.1f, 0.01f);
+  EXPECT_NEAR(vector_a.position_.y, 4.8f, 0.01f);
 }
 
 TEST(VectorTest, DotProduct) {
@@ -102,6 +121,16 @@ TEST(VectorTest, UnitVector) {
 
   EXPECT_NEAR(unit_vector.position_.x, 2.0f / std::sqrt(13), 0.01f);
   EXPECT_NEAR(unit_vector.position_.y, 3.0f / std::sqrt(13), 0.01f);
+}
+
+TEST(VectoTest, ComputeMagnitude) {
+  Vector vector(0.0f, 0.0f);
+  vector += Vector(1.0f, 0.0f);
+
+  EXPECT_NEAR(vector.magnitude_, 1.0f, 0.01f)
+      << "x: " << vector.position_.x << "\n"
+      << "y: " << vector.position_.y << "\n"
+      << "magnitude: " << vector.magnitude_ << "\n";
 }
 
 }  // namespace

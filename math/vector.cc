@@ -24,15 +24,32 @@ Vector Vector::operator+(const Vector& vector) const {
                 position_.y + vector.position_.y);
 }
 
+void Vector::operator+=(const Vector& vector) {
+  this->position_.x += vector.position_.x;
+  this->position_.y += vector.position_.y;
+  this->magnitude_ =
+      this->ComputeMagnitude(this->position_.x, this->position_.y);
+}
+
 Vector Vector::operator-(const Vector& vector) const {
   return Vector(position_.x - vector.position_.x,
                 position_.y - vector.position_.y);
 }
 
-Vector Vector::operator/(float num) const { return Vector(position_.x / num, position_.y / num); }
+void Vector::operator-=(const Vector& vector) {
+  this->position_.x -= vector.position_.x;
+  this->position_.y -= vector.position_.y;
+  this->magnitude_ =
+      this->ComputeMagnitude(this->position_.x, this->position_.y);
+}
+
+Vector Vector::operator/(float num) const {
+  return Vector(position_.x / num, position_.y / num);
+}
 
 bool Vector::operator==(const Vector& vector) const {
-  return position_.x == vector.position_.x && position_.y == vector.position_.y && magnitude_ == vector.magnitude_;
+  return position_.x == vector.position_.x &&
+         position_.y == vector.position_.y && magnitude_ == vector.magnitude_;
 }
 
 // Dot Product
@@ -41,11 +58,13 @@ float Vector::operator*(const Vector& vector) const {
 }
 
 float DotProduct(const Vector& vector_a, const Vector& vector_b) {
-  return vector_a.position_.x * vector_b.position_.x + vector_a.position_.y * vector_b.position_.y;
+  return vector_a.position_.x * vector_b.position_.x +
+         vector_a.position_.y * vector_b.position_.y;
 }
 
 float CrossProduct(const Vector& vector_a, const Vector& vector_b) {
-  return vector_a.position_.x * vector_b.position_.y - vector_a.position_.y * vector_b.position_.x;
+  return vector_a.position_.x * vector_b.position_.y -
+         vector_a.position_.y * vector_b.position_.x;
 }
 
 Vector Vector::GetUnitVector() const {
@@ -53,8 +72,7 @@ Vector Vector::GetUnitVector() const {
   Normalization Formula:
           Unit Vector = Vector / ||Vector|| <- Magnitude
   */
-
-  return *this / magnitude_;
+  return magnitude_ == 0 ? Vector(0.0f, 0.0f) : *this / magnitude_;
 }
 
 float Vector::ComputeMagnitude(float x, float y) {

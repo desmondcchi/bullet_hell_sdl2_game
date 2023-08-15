@@ -1,7 +1,10 @@
 #include "entities/player.h"
 
+#include <iostream>
+
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "math/vector.h"
 
 namespace entities {
 
@@ -13,64 +16,45 @@ Player::Player(SDL_Renderer* renderer) {
   width_ = 100;
   height_ = 100;
   speed_ = 5;
-  id_ = GenerateID();
 
   UpdateRect();
 }
 
 void Player::HandleMovement(int screen_width, int screen_height) {
   const Uint8* keystate = SDL_GetKeyboardState(NULL);
+  float dir_x = 0.0f;
+  float dir_y = 0.0f;
 
   if (keystate[SDL_SCANCODE_W]) {
     if (position_.y - speed_ >= 0) {
-      Move(entities::Player::Direction::kUp);
+      dir_y += -1.0f;
     }
   }
   if (keystate[SDL_SCANCODE_A]) {
     if (position_.x - speed_ >= 0) {
-      Move(entities::Player::Direction::kLeft);
+      dir_x += -1.0f;
     }
   }
   if (keystate[SDL_SCANCODE_S]) {
     if (position_.y + speed_ <= screen_height - height_) {
-      Move(entities::Player::Direction::kDown);
+      dir_y += 1.0f;
     }
   }
   if (keystate[SDL_SCANCODE_D]) {
     if (position_.x + speed_ <= screen_width - width_) {
-      Move(entities::Player::Direction::kRight);
+      dir_x += 1.0f;
     }
   }
+
+  math::Vector dir_vec = math::Vector(dir_x, dir_y).GetUnitVector();
+  position_.x += dir_vec.position_.x * speed_;
+  position_.y += dir_vec.position_.y * speed_;
 }
 
 void Player::Update() { UpdateRect(); }
 
 void Player::Render() {
   SDL_RenderCopyF(renderer_, texture_, NULL, &dest_rect_);
-}
-
-int Player::GenerateID() const {
-  static int id = 0;
-  return ++id;
-}
-
-void Player::Move(Direction dir) {
-  switch (dir) {
-    case Direction::kUp:
-      position_.y -= speed_;
-      break;
-    case Direction::kDown:
-      position_.y += speed_;
-      break;
-    case Direction::kLeft:
-      position_.x -= speed_;
-      break;
-    case Direction::kRight:
-      position_.x += speed_;
-      break;
-    default:
-      break;
-  }
 }
 
 void Player::UpdateRect() {

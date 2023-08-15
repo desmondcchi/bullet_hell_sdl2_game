@@ -17,7 +17,9 @@ class Vector {
   Vector(Vector&& vector) = default;
 
   Vector operator+(const Vector& vector) const;
+  void operator+=(const Vector& vector);
   Vector operator-(const Vector& vector) const;
+  void operator-=(const Vector& vector);
   Vector operator/(float num) const;
   float operator*(const Vector& vector) const;  // Dot Product
   bool operator==(const Vector& vector) const;
