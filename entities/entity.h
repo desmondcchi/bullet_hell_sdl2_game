@@ -9,8 +9,6 @@ class Entity {
  public:
   virtual ~Entity() = default;
 
-  enum Direction { kNone, kUp, kDown, kLeft, kRight };
-
   SDL_FPoint GetPosition() const;
   float GetWidth() const;
   float GetHeight() const;
