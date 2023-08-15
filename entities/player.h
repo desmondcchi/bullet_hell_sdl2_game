@@ -3,7 +3,6 @@
 
 #include "SDL2/SDL.h"
 #include "entities/entity.h"
-#include "math/vector.h"
 
 namespace entities {
 

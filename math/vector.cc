@@ -2,7 +2,6 @@
 
 #include <cmath>
 #include <memory>
-#include <iostream>
 
 #include "SDL2/SDL.h"
 
@@ -73,8 +72,6 @@ Vector Vector::GetUnitVector() const {
   Normalization Formula:
           Unit Vector = Vector / ||Vector|| <- Magnitude
   */
-  std::cout << "[DEBUG] magnitude = " << magnitude_ << " | x = " << position_.x
-            << " | y = " << position_.y << "\n";
   return magnitude_ == 0 ? Vector(0.0f, 0.0f) : *this / magnitude_;
 }
 
