@@ -10,7 +10,7 @@ cc_library(
         "//entities:player",
         "//projectiles:carrot_gun_projectile",
         "//projectiles:projectile",
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )
 
@@ -22,6 +22,6 @@ cc_library(
     deps = [
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/strings:string_view",
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )

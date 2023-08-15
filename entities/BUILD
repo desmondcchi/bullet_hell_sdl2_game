@@ -4,7 +4,7 @@ cc_library(
     name = "entity",
     srcs = ["entity.cc"],
     hdrs = ["entity.h"],
-    deps = ["@sdl2"],
+    deps = ["//third_party:sdl2"],
 )
 
 cc_library(
@@ -15,6 +15,6 @@ cc_library(
     deps = [
         "//entities:entity",
         "//math:vector",
-        "@sdl2",
+        "//third_party:sdl2",
     ],
 )
