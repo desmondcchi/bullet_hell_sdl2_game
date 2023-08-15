@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "vector_cc",
+    name = "vector",
     srcs = ["vector.cc"],
     hdrs = ["vector.h"],
     deps = [
@@ -13,7 +13,7 @@ cc_test(
     name = "vector_test",
     srcs = ["vector_test.cc"],
     deps = [
-        ":vector_cc",
+        ":vector",
         "@com_google_googletest//:gtest_main",
     ],
 )
