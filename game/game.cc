@@ -110,6 +110,8 @@ void Game::Render() {
   SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
   SDL_RenderClear(renderer_);
 
+  // TODO(desmondcchi): Render level tile map.
+
   for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
     projectile->Render();
   }
