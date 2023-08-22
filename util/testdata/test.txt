@@ -1,0 +1,4 @@
+# proto-file: util/testdata/test.proto
+# proto-message: util.Test
+
+id: 123
