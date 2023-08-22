@@ -123,7 +123,7 @@ TEST(VectorTest, UnitVector) {
   EXPECT_NEAR(unit_vector.position_.y, 3.0f / std::sqrt(13), 0.01f);
 }
 
-TEST(VectoTest, ComputeMagnitude) {
+TEST(VectorTest, ComputeMagnitude) {
   Vector vector(0.0f, 0.0f);
   vector += Vector(1.0f, 0.0f);
 

@@ -1,0 +1,6 @@
+# proto-file: proto/level.proto
+# proto-message: level.LevelGraph
+
+rooms {
+  id = 0
+}

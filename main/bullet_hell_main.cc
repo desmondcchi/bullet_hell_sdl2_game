@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 
   if (!game.Init()) {
     game.Shutdown();
-    return 1;
+    return EXIT_FAILURE;
   }
 
   int frame_delay = 1000 / absl::GetFlag(FLAGS_fps);
@@ -34,5 +34,5 @@ int main(int argc, char* argv[]) {
 
   game.Shutdown();
 
-  return 0;
+  return EXIT_SUCCESS;
 }
