@@ -5,7 +5,7 @@
 #include "absl/container/flat_hash_map.h"
 #include "absl/strings/string_view.h"
 
-namespace game {
+namespace util {
 
 class AudioManager {
  public:
@@ -21,6 +21,6 @@ class AudioManager {
   absl::flat_hash_map<std::string, Mix_Chunk*> audio_map_;
 };
 
-}  // namespace game
+}  // namespace util
 
 #endif

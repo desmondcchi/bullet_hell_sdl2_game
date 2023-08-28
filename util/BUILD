@@ -21,3 +21,15 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_library(
+    name = "audio_manager",
+    srcs = ["audio_manager.cc"],
+    hdrs = ["audio_manager.h"],
+    data = ["//assets/player:player_asset"],
+    deps = [
+        "//third_party:sdl2",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/strings:string_view",
+    ],
+)
