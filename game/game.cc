@@ -5,6 +5,7 @@
 #include "entities/player.h"
 #include "projectiles/carrot_gun_projectile.h"
 #include "projectiles/projectile.h"
+#include "util/audio_manager.h"
 
 namespace game {
 
@@ -38,7 +39,7 @@ bool Game::Init() {
   }
 
   // Add audio files here.
-  audio_manager_ = std::make_unique<AudioManager>();
+  audio_manager_ = std::make_unique<util::AudioManager>();
   audio_manager_->AddAudio("assets/player/ben.mp3");
 
   player_ = new Player(renderer_);
