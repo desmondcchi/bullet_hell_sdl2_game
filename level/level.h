@@ -6,8 +6,8 @@
 
 #include "SDL2/SDL.h"
 #include "absl/strings/string_view.h"
-#include "proto/level.pb.h"
 #include "level/room.h"
+#include "proto/level.pb.h"
 
 namespace level {
 
@@ -19,14 +19,24 @@ class Level {
   void GoToRoom(int room_number);
 
   enum RoomDirection { kLeft, kRight, kUp, kDown };
-  // Move to a room that is left, right, up, or down, if possible.
-  void Move(RoomDirection dir);
+  // Move to a room that is left, right, up, or down, if possible. If not,
+  // return false.
+  bool Move(RoomDirection dir);
+
+  // Returns how many rooms there are in the level.
+  int GetRoomsSize() const;
+
+  // Returns a unique pointer to the current room.
+  std::unique_ptr<Room> GetCurrentRoom() const;
+
+  // Returns a unique ptr to the room specified via index.
+  std::unique_ptr<Room> GetRoomAt(int index) const;
 
  private:
-  LevelGraph* level_;
+  LevelGraph level_;
 
   // Pointer to current room.
-  std::unique_ptr<Room> room_;
+  std::unique_ptr<Room> current_room_;
   std::vector<std::unique_ptr<Room>> rooms_;
 
   // Parses through the text file and loads the level graph.
