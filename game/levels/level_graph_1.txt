@@ -2,5 +2,7 @@
 # proto-message: level.LevelGraph
 
 rooms {
-  id = 0
+  id: 0
+  right: 1
+  map_path: "game/levels/map_1_0.txt"
 }

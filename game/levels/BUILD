@@ -1,8 +1,8 @@
-package(default_visibility = "//visibility:public")
+package(default_visibility = "//game:__subpackages__")
 
 filegroup(
-    name = "levels_txt",
+    name = "level_graph_1_txt",
     srcs = [
-        "level1.txt",
+        "level_graph_1.txt",
     ],
 )

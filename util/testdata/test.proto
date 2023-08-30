@@ -2,6 +2,11 @@ syntax = "proto2";
 
 package util;
 
+message Node {
+  optional int32 test = 1;
+}
+
 message Test {
   optional int32 id = 1;
+  repeated Node nodes = 2;
 }

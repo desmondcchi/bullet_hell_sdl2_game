@@ -2,3 +2,9 @@
 # proto-message: util.Test
 
 id: 123
+nodes: {
+  test: 1
+}
+nodes: {
+  test: 2
+}

@@ -2,7 +2,6 @@ package(default_visibility = ["//visibility:public"])
 
 cc_library(
     name = "proto",
-    srcs = ["proto.cc"],
     hdrs = ["proto.h"],
     deps = [
         "@com_google_absl//absl/log:check",
