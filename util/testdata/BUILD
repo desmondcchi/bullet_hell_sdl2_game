@@ -4,6 +4,11 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 package(default_visibility = ["//util:__subpackages__"])
 
 filegroup(
+    name = "folder",
+    srcs = glob(["folder/*"]),
+)
+
+filegroup(
     name = "test_txt",
     srcs = [
         "test.txt",

@@ -1,6 +1,26 @@
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "file",
+    srcs = ["file.cc"],
+    hdrs = ["file.h"],
+    deps = [
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/strings:string_view",
+    ],
+)
+
+cc_test(
+    name = "file_test",
+    srcs = ["file_test.cc"],
+    data = ["//util/testdata:folder"],
+    deps = [
+        ":file",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
     name = "proto",
     hdrs = ["proto.h"],
     deps = [
