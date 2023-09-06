@@ -2,7 +2,10 @@
 
 #include <cmath>
 
+<<<<<<< HEAD
 #include "SDL2/SDL.h"
+=======
+>>>>>>> 374c81c (Fix.)
 #include "gtest/gtest.h"
 
 namespace math {
