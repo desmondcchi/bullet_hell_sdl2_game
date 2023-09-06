@@ -1,6 +1,7 @@
 cc_library(
     name = "sdl2",
     srcs = select({
+<<<<<<< HEAD
         "@bazel_tools//src/conditions:darwin_arm64": [":sdl2_darwin_arm64"],
         "@bazel_tools//src/conditions:darwin": [":sdl2_darwin_arm64"],
         "@bazel_tools//src/conditions:windows_x64": [":sdl2_windows_x64"],
@@ -8,6 +9,23 @@ cc_library(
     hdrs = select({
         "@bazel_tools//src/conditions:darwin_arm64": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
         "@bazel_tools//src/conditions:darwin": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
+=======
+<<<<<<< HEAD
+        "@bazel_tools//src/conditions:darwin_arm64" or "@bazel_tools//src/conditions:darwin": [":sdl2_darwin_arm64"],
+        "@bazel_tools//src/conditions:windows_x64": [":sdl2_windows_x64"],
+    }),
+    hdrs = select({
+        "@bazel_tools//src/conditions:darwin_arm64" or "@bazel_tools//src/conditions:darwin": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
+=======
+        "@bazel_tools//src/conditions:darwin_arm64": [":sdl2_darwin_arm64"],
+        "@bazel_tools//src/conditions:darwin": [":sdl2_darwin_arm64"],
+        "@bazel_tools//src/conditions:windows_x64": [":sdl2_windows_x64"],
+    }),
+    hdrs = select({
+        "@bazel_tools//src/conditions:darwin_arm64": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
+        "@bazel_tools//src/conditions:darwin": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
+>>>>>>> 03c0b40 (Integrate GitHub Actions CI/CD with Bazel.)
+>>>>>>> 146766b (Integrate GitHub Actions CI/CD with Bazel.)
         "@bazel_tools//src/conditions:windows_x64": glob(["sdl2/2.28.2/windows_x64/include/SDL2/*.h"]),
     }),
     linkopts = ["-framework OpenGL"],
