@@ -33,7 +33,7 @@ jobs:
       - uses: bazelbuild/setup-bazelisk@v2
 
       - name: Build all targets.
-        run: bazel build //...
+        run: bazel build ///...
 
   # TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
   test_windows_x64:
@@ -43,5 +43,5 @@ jobs:
       - uses: bazelbuild/setup-bazelisk@v2
 
       - name: Test all test targets.
-        run: bazel test //... --test_output=all
+        run: bazel test ///... --test_output=all
 
