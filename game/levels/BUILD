@@ -1,4 +1,4 @@
-package(default_visibility = "//game:__subpackages__")
+package(default_visibility = ["//game:__subpackages__"])
 
 filegroup(
     name = "level_graph_1_txt",
