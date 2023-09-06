@@ -13,6 +13,7 @@ cc_library(
     linkopts = ["-framework OpenGL"],
     strip_include_prefix = select({
         "@bazel_tools//src/conditions:darwin_arm64": "sdl2/2.28.2/darwin_arm64/include",
+        "@bazel_tools//src/conditions:darwin_x86_64": "sdl2/2.28.2/darwin_arm64/include",
         "@bazel_tools//src/conditions:windows_x64": "sdl2/2.28.2/windows_x64/include",
     }),
     visibility = ["//visibility:public"],
