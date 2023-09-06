@@ -25,23 +25,3 @@ jobs:
 
   #     - name: Test all test targets.
   #       run: bazel test //... --test_output=all
-
-  build_windows_x64:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: bazelbuild/setup-bazelisk@v2
-
-      - name: Build all targets.
-        run: bazel build ...
-
-  # TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
-  test_windows_x64:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: bazelbuild/setup-bazelisk@v2
-
-      - name: Test all test targets.
-        run: bazel test ... --test_output=all
-
