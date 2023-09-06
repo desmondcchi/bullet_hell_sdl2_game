@@ -7,13 +7,15 @@ namespace level {
 
 class Tile {
  public:
-  Tile(SDL_Texture* tile_sheet, int x, int y, int ts_x, int ts_y, int width,
+  Tile() = default;
+
+  Tile(SDL_Texture* texture, int x, int y, int ts_x, int ts_y, int width,
        int height, SDL_Renderer* renderer);
 
   void Render();
 
  private:
-  SDL_Texture* tile_sheet_;
+  SDL_Texture* texture = nullptr;
   // x and y position.
   int x_ = 0;
   int y_ = 0;
@@ -24,7 +26,7 @@ class Tile {
   int width_ = 0;
   int height_ = 0;
 
-  SDL_Renderer* renderer_;
+  SDL_Renderer* renderer_ = nullptr;
 };
 
 }  // namespace level
