@@ -1,9 +1,9 @@
+#include <cstdlib>
 #include <iostream>
 
 #include "SDL2/SDL.h"
 #include "absl/flags/flag.h"
 #include "game/game.h"
-#include "absl/flags/flag.h"
 
 ABSL_FLAG(int, fps, 60, "FPS for the game.");
 
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
   }
 
   int frame_delay = 1000 / absl::GetFlag(FLAGS_fps);
-  Uint32 frame_start;
+  uint64_t frame_start;
   int frame_time;
 
   while (game.IsRunning()) {

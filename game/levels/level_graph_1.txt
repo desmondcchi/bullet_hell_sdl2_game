@@ -1,8 +1,7 @@
 # proto-file: proto/level.proto
 # proto-message: level.LevelGraph
 
-rooms {
-  id: 0
-  right: 1
-  map_path: "game/levels/map_1_0.txt"
+rooms: {
+  index: 0
+  tile_map_path: "game/levels/room_tile_map_1_0.txt"
 }

@@ -9,8 +9,8 @@ message RoomNode {
   optional int32 up = 4 [default = -1];
   optional int32 down = 5 [default = -1];
 
-  // File path to the tile map for the room.
-  optional string map_path = 6;
+  // File path to the room layout.
+  optional string tile_map_path = 6;
 }
 
 message LevelGraph {
