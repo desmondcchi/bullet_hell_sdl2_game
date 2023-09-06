@@ -18,13 +18,17 @@ cc_library(
 =======
 >>>>>>> 90f683f (Fix.)
         "@bazel_tools//src/conditions:darwin_arm64": [":sdl2_darwin_arm64"],
+<<<<<<< HEAD
         "@bazel_tools//src/conditions:darwin": [":sdl2_darwin_arm64"],
 >>>>>>> d17ada7 (Fix.)
+=======
+        "@bazel_tools//src/conditions:darwin_x86_64": [":sdl2_darwin_arm64"],
+>>>>>>> 60c5fbc (Fix.)
         "@bazel_tools//src/conditions:windows_x64": [":sdl2_windows_x64"],
     }),
     hdrs = select({
         "@bazel_tools//src/conditions:darwin_arm64": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
-        "@bazel_tools//src/conditions:darwin": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
+        "@bazel_tools//src/conditions:darwin_x86_64": glob(["sdl2/2.28.2/darwin_arm64/include/SDL2/*.h"]),
         "@bazel_tools//src/conditions:windows_x64": glob(["sdl2/2.28.2/windows_x64/include/SDL2/*.h"]),
 >>>>>>> c4e06fc (Fix.)
     }),
