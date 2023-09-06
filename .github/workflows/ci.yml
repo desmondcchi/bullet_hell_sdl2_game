@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bazelbuild/setup-bazelisk@v1.18.0
+      - uses: bazelbuild/setup-bazelisk@v2
 
       - name: Build all targets.
         run: bazel build //...
