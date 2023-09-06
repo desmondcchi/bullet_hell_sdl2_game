@@ -1,0 +1,26 @@
+name: continuous_integration
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  build:
+    runs-on: [self-hosted, macos-13]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bazelbuild/setup-bazelisk@v1.18.0
+
+      - name: Build all targets.
+        run: bazel build //...
+
+  test:
+    runs-on: [self-hosted, macos-13]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bazelbuild/setup-bazelisk@v1.18.0
+
+      - name: Test all test targets.
+        run: bazel test //...
