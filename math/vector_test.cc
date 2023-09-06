@@ -1,5 +1,7 @@
 #include "math/vector.h"
 
+#include <cmath>
+
 #include "gtest/gtest.h"
 
 namespace math {
