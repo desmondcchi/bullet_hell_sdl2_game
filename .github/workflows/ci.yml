@@ -7,21 +7,21 @@ on:
     branches:
       - "main"
 jobs:
-  # build_darwin_x86_64:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: bazelbuild/setup-bazelisk@v2
-
-  #     - name: Build all targets.
-  #       run: bazel build //...
-
-  # TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
-  test_darwin_x86_64:
+  build_darwin_x86_64:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: bazelbuild/setup-bazelisk@v2
 
-      - name: Test all test targets.
-        run: bazel test //... --test_output=all
+      - name: Build all targets.
+        run: bazel build //...
+
+  # TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
+  # test_darwin_x86_64:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: bazelbuild/setup-bazelisk@v2
+
+  #     - name: Test all test targets.
+  #       run: bazel test //... --test_output=all
