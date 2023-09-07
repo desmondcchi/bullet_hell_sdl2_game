@@ -14,6 +14,7 @@ cc_test(
     srcs = ["vector_test.cc"],
     deps = [
         ":vector",
+        "//third_party:sdl2",
         "@com_google_googletest//:gtest_main",
     ],
 )

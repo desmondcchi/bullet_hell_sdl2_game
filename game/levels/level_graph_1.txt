@@ -4,5 +4,5 @@
 rooms {
   id: 0
   right: 1
-  map_path: "game/levels/map_1_0.txt"
+  room_layout_path: "game/levels/map_1_0.txt"
 }
