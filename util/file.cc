@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <string>
+#include <vector>
 
 #include "absl/log/check.h"
 #include "absl/strings/match.h"
