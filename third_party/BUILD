@@ -8,6 +8,12 @@ cc_library(
         "@bazel_tools//src/conditions:windows_x64": glob(["sdl2/2.28.2/windows_x64/lib/*.dll"]),
     }),
     hdrs = glob(["sdl2/2.28.2/include/SDL2/*.h"]),
-    linkopts = ["-framework OpenGL"],
+    linkopts = select({
+        "@bazel_tools//src/conditions:darwin_x86_64": [
+            "-framework OpenGL",
+            "-include_name sdl2/2.28.2/darwin_x86_64/lib",
+        ],
+        "//conditions:default": ["-framework OpenGL"],
+    }),
     strip_include_prefix = "sdl2/2.28.2/include",
 )
