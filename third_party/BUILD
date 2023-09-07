@@ -16,7 +16,7 @@ cc_library(
     linkopts = select({
         "@bazel_tools//src/conditions:darwin_x86_64": [
             "-framework OpenGL",
-            "-Wl,sdl2/2.28.2/darwin_x86_64/lib/libSDL2-2.0.0.dylib",
+            "-Wl,--script=$(location :sdl2/2.28.2/darwin_x86_64/lib/libSDL2-2.0.0.dylib)",
         ],
         "//conditions:default": [
             "-framework OpenGL",
