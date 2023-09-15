@@ -26,6 +26,7 @@ cc_test(
     deps = [
         ":level",
         "//proto:level_cc_proto",
+        "//third_party:sdl2",
         "//util:proto",
         "@com_google_googletest//:gtest_main",
     ],
@@ -58,6 +59,7 @@ cc_test(
     deps = [
         ":room",
         "//proto:level_cc_proto",
+        "//third_party:sdl2",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_googletest//:gtest_main",
     ],

@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "SDL2/SDL.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "proto/level.pb.h"
@@ -16,13 +17,13 @@ using ::util::proto::ReadTextProto;
 
 class LevelTest : public Test {
  protected:
-  SDL_Renderer* renderer =
+  SDL_Renderer* renderer_ =
       SDL_CreateRenderer(SDL_CreateWindow("Test", 0, 0, 0, 0, 0), 1, 0);
 };
 
 TEST_F(LevelTest, LoadLevel) {
   std::unique_ptr<Level> level = std::make_unique<Level>(
-      "assets/tiles/", "level/testdata/level_graph.txt", renderer);
+      "assets/tiles/", "level/testdata/level_graph.txt", renderer_);
 
   // Level graph looks like this:
   /*
@@ -51,7 +52,8 @@ TEST_F(LevelTest, LoadLevel) {
 // }
 
 // TEST(LevelTest, GoToRoom) {
-//   // TODO(@LucasDil): Test the GoToRoom() function and check if the current room
+//   // TODO(@LucasDil): Test the GoToRoom() function and check if the current
+//   room
 //   // pointer gets updated.
 // }
 

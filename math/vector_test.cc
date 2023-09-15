@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "SDL2/SDL.h"
 #include "gtest/gtest.h"
 
 namespace math {
