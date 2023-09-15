@@ -18,7 +18,7 @@ bool FileExists(absl::string_view file_path) {
 std::vector<std::string> GetAllFilesInDirectory(
     absl::string_view directory_path) {
   CHECK_EQ(std::filesystem::exists(directory_path), true)
-      << "Directory does not exist.";
+      << "Directory does not exist: " << directory_path;
 
   std::vector<std::string> all_files;
   for (const std::filesystem::directory_entry& directory_entry :

@@ -6,6 +6,7 @@
 
 #include "SDL2/SDL.h"
 #include "entities/player.h"
+#include "level/level.h"
 #include "projectiles/projectile.h"
 #include "util/audio_manager.h"
 
@@ -34,6 +35,11 @@ class Game {
   bool IsRunning() const;
 
  private:
+  Game() = default;
+  Game(const Game& game) = delete;
+  Game& operator=(const Game& game) = delete;
+  ~Game() = default;
+
   SDL_Renderer* renderer_;
   SDL_Window* window_;
   SDL_Event event_;
@@ -44,10 +50,7 @@ class Game {
   entities::Player* player_ = nullptr;
   std::vector<std::unique_ptr<projectiles::Projectile>> projectiles_;
 
-  Game() = default;
-  Game(const Game& game) = delete;
-  Game& operator=(const Game& game) = delete;
-  ~Game() = default;
+  std::unique_ptr<level::Level> level_ = nullptr;
 
   // Processes user mouse/keyboard input and events/collisions.
   void HandleEvents();

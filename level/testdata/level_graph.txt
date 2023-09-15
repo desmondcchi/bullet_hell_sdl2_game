@@ -4,16 +4,16 @@
 rooms: {
   index: 0
   right: 1
-  map_path: "map_1_0.txt"
+  tile_map_path: "level/testdata/room_tile_map.txt"
 }
 rooms: {
   index: 1
   left: 0
   up: 2
-  map_path: "map_1_0.txt"
+  tile_map_path: "level/testdata/room_tile_map.txt"
 }
 rooms: {
   index: 2
   down: 1
-  map_path: "map_1_0.txt"
+  tile_map_path: "level/testdata/room_tile_map.txt"
 }

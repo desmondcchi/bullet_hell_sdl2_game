@@ -21,7 +21,8 @@ inline void ReadTextProto(T* message, absl::string_view textproto_path) {
   google::protobuf::io::FileInputStream finput(file_descriptor);
   finput.SetCloseOnDelete(true);
   bool success = google::protobuf::TextFormat::Parse(&finput, message);
-  CHECK_EQ(success, true) << "Failed to parse .txt into proto message.";
+  CHECK_EQ(success, true) << "Failed to parse .txt into proto message. "
+                             "(Incorrect fields/formatting?)";
 }
 
 }  // namespace proto

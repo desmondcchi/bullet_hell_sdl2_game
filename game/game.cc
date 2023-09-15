@@ -1,6 +1,7 @@
 #include "game/game.h"
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
 #include "entities/player.h"
 #include "projectiles/carrot_gun_projectile.h"
@@ -42,7 +43,12 @@ bool Game::Init() {
   audio_manager_ = std::make_unique<util::AudioManager>();
   audio_manager_->AddAudio("assets/player/ben.mp3");
 
+  // Create player.
   player_ = new Player(renderer_);
+
+  // Initialize level.
+  level_ = std::make_unique<level::Level>(
+      "assets/tiles/", "game/levels/level_graph_1.txt", renderer_);
 
   is_running_ = true;
   return true;
@@ -107,10 +113,12 @@ void Game::Update() {
 }
 
 void Game::Render() {
+  // Set background to be black.
   SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
   SDL_RenderClear(renderer_);
 
-  // TODO(desmondcchi): Render level tile map.
+  // Render level tile map.
+  level_->GetCurrentRoom()->Render();
 
   for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
     projectile->Render();

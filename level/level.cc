@@ -1,9 +1,9 @@
 #include "level/level.h"
 
-#include <iostream>
 #include <memory>
 #include <utility>
 
+#include "SDL2/SDL.h"
 #include "absl/log/check.h"
 #include "absl/strings/string_view.h"
 #include "level/room.h"
@@ -11,38 +11,45 @@
 
 namespace level {
 
-Level::Level(absl::string_view tile_sheet_path,
-             absl::string_view level_txt_path) {
-  LoadLevel(level_txt_path);
+Level::Level(absl::string_view tile_dir_path, absl::string_view level_txt_path,
+             SDL_Renderer* renderer) {
+  CHECK_EQ(renderer != nullptr, true) << "Renderer is nullptr.";
+  renderer_ = renderer;
+  LoadLevel(level_txt_path, tile_dir_path);
 }
 
-void Level::LoadLevel(absl::string_view level_txt_path) {
+void Level::LoadLevel(absl::string_view level_txt_path,
+                      absl::string_view tile_dir_path) {
   util::proto::ReadTextProto(&level_, level_txt_path);
 
+  CHECK_EQ(renderer_ != nullptr, true) << "Renderer is nullptr.";
   // Builds the level graph by creating list of nodes that are indexable.
   for (const RoomNode& room_node : level_.rooms()) {
-    rooms_.emplace_back(std::make_unique<Room>(room_node));
+    rooms_.push_back(
+        std::make_shared<Room>(tile_dir_path, room_node.tile_map_path(),
+                               room_node, 16, 24, 1200, 800, renderer_));
   }
 
   // Make current room the room where index = 0.
   CHECK_EQ(rooms_.empty(), false) << "No rooms in level.";
-  current_room_ = std::make_unique<Room>(*rooms_[0].get());
+  current_room_ = rooms_[0];
 }
 
 int Level::GetRoomsSize() const { return rooms_.size(); }
 
-std::unique_ptr<Room> Level::GetCurrentRoom() const {
-  return std::make_unique<Room>(*current_room_.get());
+std::shared_ptr<Room> Level::GetCurrentRoom() const {
+  CHECK_NE(current_room_, nullptr) << "current_room_ is nullptr.";
+  return current_room_;
 }
 
-std::unique_ptr<Room> Level::GetRoomAt(int index) const {
+std::shared_ptr<Room> Level::GetRoomAt(int index) const {
   CHECK(index < rooms_.size());
-  return std::make_unique<Room>(*rooms_[index].get());
+  return rooms_[index];
 }
 
 void Level::GoToRoom(int room_number) {
   CHECK_LT(room_number, level_.rooms_size()) << "Room index out of bound.";
-  current_room_ = std::make_unique<Room>(level_.rooms().at(room_number));
+  current_room_ = rooms_[room_number];
 }
 
 bool Level::Move(RoomDirection dir) {
