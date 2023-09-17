@@ -47,7 +47,7 @@ class Game {
 
   std::unique_ptr<util::AudioManager> audio_manager_;
 
-  entities::Player* player_ = nullptr;
+  std::unique_ptr<entities::Player> player_ = nullptr;
   std::vector<std::unique_ptr<projectiles::Projectile>> projectiles_;
 
   std::unique_ptr<level::Level> level_ = nullptr;
