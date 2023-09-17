@@ -4,6 +4,7 @@
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
 #include "entities/player.h"
+#include "level/level.h"
 #include "projectiles/carrot_gun_projectile.h"
 #include "projectiles/projectile.h"
 #include "util/audio_manager.h"
@@ -11,6 +12,7 @@
 namespace game {
 
 using ::entities::Player;
+using ::level::Level;
 using ::projectiles::CarrotGunProjectile;
 using ::projectiles::Projectile;
 
@@ -44,11 +46,15 @@ bool Game::Init() {
   audio_manager_->AddAudio("assets/player/ben.mp3");
 
   // Create player.
-  player_ = new Player(renderer_);
+  int player_width = 50;
+  int player_height = 50;
+  player_ = std::make_unique<Player>((kScreenWidth - player_width) / 2.0f,
+                                     (kScreenHeight - player_height) / 2.0f,
+                                     player_width, player_height, 5, renderer_);
 
   // Initialize level.
-  level_ = std::make_unique<level::Level>(
-      "assets/tiles/", "game/levels/level_graph_1.txt", renderer_);
+  level_ = std::make_unique<Level>("assets/tiles/",
+                                   "game/levels/level_graph_1.txt", renderer_);
 
   is_running_ = true;
   return true;
@@ -98,7 +104,8 @@ void Game::HandleEvents() {
   }
 
   // Handle movement.
-  player_->HandleMovement(kScreenWidth, kScreenHeight);
+  player_->HandleMovement(kScreenWidth, kScreenHeight,
+                          level_->GetCurrentRoom()->GetTileMap());
 
   for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
     projectile->HandleMovement();

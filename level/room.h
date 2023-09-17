@@ -43,7 +43,10 @@ class Room {
 
   // Get the tile dictionary that maps character to the path of the tile
   // texture.
-  absl::flat_hash_map<char, std::string> GetTileDict() const;
+  const absl::flat_hash_map<char, std::string>& GetTileDict() const;
+
+  // Get the tile map.
+  const std::vector<std::vector<std::shared_ptr<Tile>>>& GetTileMap() const;
 
  private:
   SDL_Renderer* renderer_ = nullptr;

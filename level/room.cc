@@ -10,6 +10,7 @@
 #include "absl/strings/str_cat.h"
 #include "absl/strings/str_split.h"
 #include "absl/strings/string_view.h"
+#include "level/tile.h"
 #include "proto/level.pb.h"
 #include "util/file.h"
 
@@ -171,15 +172,18 @@ void Room::LoadTileMap(absl::string_view tile_map_path) {
       CHECK_LT(r, tile_map_.size()) << "r is greater than number of rows.";
       CHECK_LT(c, tile_map_[r].size())
           << "c is greater than number of columns.";
-      tile_map_[r][c] = std::make_shared<Tile>(texture, x, y, tile_width_,
-                                               tile_height_, renderer_);
+
+      tile_map_[r][c] =
+          std::make_shared<Tile>(texture, x, y, tile_width_, tile_height_,
+                                 IsCharWall(curr_char), renderer_);
+                          
       x += tile_width_;
     }
     // Clear the end line.
     char eof;
     input_file.get(eof);
-    CHECK_EQ(eof, '\n') << "Line has too many characters (> "
-                               << num_cols_ << ") in tile map file.";
+    CHECK_EQ(eof, '\n') << "Line has too many characters (> " << num_cols_
+                        << ") in tile map file.";
     x = 0;
     y += tile_height_;
   }
@@ -204,8 +208,13 @@ int Room::GetUp() const { return up_; }
 
 int Room::GetDown() const { return down_; }
 
-absl::flat_hash_map<char, std::string> Room::GetTileDict() const {
+const absl::flat_hash_map<char, std::string>& Room::GetTileDict() const {
   return tile_dict_;
+}
+
+const std::vector<std::vector<std::shared_ptr<Tile>>>& Room::GetTileMap()
+    const {
+  return tile_map_;
 }
 
 void Room::Render() {

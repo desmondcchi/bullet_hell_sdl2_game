@@ -58,6 +58,7 @@ cc_test(
     ],
     deps = [
         ":room",
+        "//level:tile",
         "//proto:level_cc_proto",
         "//third_party:sdl2",
         "@com_google_absl//absl/container:flat_hash_map",
@@ -71,5 +72,6 @@ cc_library(
     hdrs = ["tile.h"],
     deps = [
         "//third_party:sdl2",
+        "@com_google_absl//absl/container:flat_hash_set",
     ],
 )

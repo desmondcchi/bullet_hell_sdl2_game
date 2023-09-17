@@ -2,10 +2,9 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
-#include "absl/flags/flag.h"
 #include "game/game.h"
 
-ABSL_FLAG(int, fps, 60, "FPS for the game.");
+constexpr int fps = 60;
 
 int main(int argc, char* argv[]) {
   game::Game& game = game::Game::GetInstance();
@@ -15,7 +14,7 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  int frame_delay = 1000 / absl::GetFlag(FLAGS_fps);
+  int frame_delay = 1000 / fps;
   uint64_t frame_start;
   int frame_time;
 
