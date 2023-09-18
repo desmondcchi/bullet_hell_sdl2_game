@@ -22,8 +22,9 @@ class LevelTest : public Test {
 };
 
 TEST_F(LevelTest, LoadLevel) {
-  std::unique_ptr<Level> level = std::make_unique<Level>(
-      "assets/tiles/", "level/testdata/level_graph.txt", renderer_);
+  std::unique_ptr<Level> level =
+      std::make_unique<Level>("assets/tiles/", "level/testdata/level_graph.txt",
+                              16, 24, 1200, 800, renderer_);
 
   // Level graph looks like this:
   /*
