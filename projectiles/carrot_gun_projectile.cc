@@ -15,7 +15,12 @@ CarrotGunProjectile::CarrotGunProjectile(SDL_FPoint start_position,
   position_ = start_position;
   speed_ = 10.0f;
   direction_ = ComputeDirection(start_position, end_position);
-  rect_ = {.x = position_.x, .y = position_.y, .w = width_, .h = height_ };
+  rect_ = new SDL_FRect(SDL_FRect{
+      .x = position_.x,
+      .y = position_.y,
+      .w = width_,
+      .h = height_,
+  });
 }
 
 void CarrotGunProjectile::HandleMovement() {
@@ -35,15 +40,15 @@ bool CarrotGunProjectile::CheckCollision(int screen_width, int screen_height) {
 }
 
 void CarrotGunProjectile::Update() {
-  rect_.x = position_.x;
-  rect_.y = position_.y;
-  rect_.w = width_;
-  rect_.h = height_;
+  rect_->x = position_.x;
+  rect_->y = position_.y;
+  rect_->w = width_;
+  rect_->h = height_;
 }
 
 void CarrotGunProjectile::Render() {
-  SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
-  SDL_RenderFillRectF(renderer_, &rect_);
+  SDL_SetRenderDrawColor(renderer_, 0, 255, 0, 255);
+  SDL_RenderFillRectF(renderer_, rect_);
 }
 
 }  // namespace projectiles

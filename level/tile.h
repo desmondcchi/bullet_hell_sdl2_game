@@ -17,16 +17,19 @@ class Tile {
   // Get width.
   int GetWidth() const;
 
-  // Get Height.
+  // Get height.
   int GetHeight() const;
 
   // Returns true if the tile is a wall (has collision).
   bool IsWall() const;
 
+  // Get the SDL rectangle.
+  SDL_FRect* GetRect() const;
+
  private:
   SDL_Texture* texture_ = nullptr;
   SDL_Renderer* renderer_ = nullptr;
-  SDL_FRect* dest_rect_ = nullptr;
+  SDL_FRect* rect_ = nullptr;
   // x and y position. (Top left corner of texture is starting position)
   int x_ = 0;
   int y_ = 0;
