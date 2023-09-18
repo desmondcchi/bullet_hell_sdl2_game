@@ -1,27 +1,29 @@
-name: continuous_integration
-on:
-  push:
-    branches:
-      - "main"
-  pull_request:
-    branches:
-      - "main"
-jobs:
-  build_darwin_x86_64:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: bazelbuild/setup-bazelisk@v2
+# TODO(@desmondcchi): Enable CI when compatibility issues are fixed.
 
-      - name: Build all targets.
-        run: bazel build //... --cxxopt='-std=c++20'
+# name: continuous_integration
+# on:
+#   push:
+#     branches:
+#       - "main"
+#   pull_request:
+#     branches:
+#       - "main"
+# jobs:
+# build_darwin_x86_64:
+#   runs-on: macos-latest
+#   steps:
+#     - uses: actions/checkout@v3
+#     - uses: bazelbuild/setup-bazelisk@v2
 
-  # TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
-  # test_darwin_x86_64:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: bazelbuild/setup-bazelisk@v2
+#     - name: Build all targets.
+#       run: bazel build //... --cxxopt='-std=c++20'
 
-  #     - name: Test all test targets.
-  #       run: bazel test //... --test_output=all
+# TODO(@desmondcchi) Bug where GitHub Actions is referencing files on local machine.
+# test_darwin_x86_64:
+#   runs-on: macos-latest
+#   steps:
+#     - uses: actions/checkout@v3
+#     - uses: bazelbuild/setup-bazelisk@v2
+
+#     - name: Test all test targets.
+#       run: bazel test //... --test_output=all
