@@ -16,10 +16,10 @@ using ::level::Level;
 using ::projectiles::CarrotGunProjectile;
 using ::projectiles::Projectile;
 
-constexpr int kScreenWidth = 1425;
-constexpr int kScreenHeight = 825;
-constexpr int kTileWidth = 75;
-constexpr int kTileHeight = 75;
+constexpr int kScreenWidth = 1700;
+constexpr int kScreenHeight = 1000;
+constexpr int kTileWidth = 100;
+constexpr int kTileHeight = 100;
 
 bool Game::Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -47,15 +47,12 @@ bool Game::Init() {
   audio_manager_ = std::make_unique<util::AudioManager>();
   audio_manager_->AddAudio("assets/player/ben.mp3");
 
-  // Initialize tile width and height (these are the dimensions of the player
-  // and tiles.)
-  int tile_width_ = kTileWidth;
-  int tile_height_ = kTileHeight;
-
   // Create player.
-  player_ = std::make_unique<Player>((kScreenWidth - kTileWidth) / 2.0f,
-                                     (kScreenHeight - kTileHeight) / 2.0f,
-                                     tile_width_, tile_height_, 5, renderer_);
+  int player_width = kTileWidth - 20;
+  int player_height = kTileHeight - 20;
+  player_ = std::make_unique<Player>((kScreenWidth - player_width) / 2.0f,
+                                     (kScreenHeight - player_height) / 2.0f,
+                                     player_width, player_height, 5, renderer_);
 
   // Initialize level.
   level_ = std::make_unique<Level>(
