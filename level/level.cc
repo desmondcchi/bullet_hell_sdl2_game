@@ -12,22 +12,25 @@
 namespace level {
 
 Level::Level(absl::string_view tile_dir_path, absl::string_view level_txt_path,
+             int num_rows, int num_cols, int screen_width, int screen_height,
              SDL_Renderer* renderer) {
   CHECK_EQ(renderer != nullptr, true) << "Renderer is nullptr.";
   renderer_ = renderer;
-  LoadLevel(level_txt_path, tile_dir_path);
+  LoadLevel(level_txt_path, tile_dir_path, num_rows, num_cols, screen_width,
+            screen_height);
 }
 
 void Level::LoadLevel(absl::string_view level_txt_path,
-                      absl::string_view tile_dir_path) {
+                      absl::string_view tile_dir_path, int num_rows,
+                      int num_cols, int screen_width, int screen_height) {
   util::proto::ReadTextProto(&level_, level_txt_path);
 
   CHECK_EQ(renderer_ != nullptr, true) << "Renderer is nullptr.";
   // Builds the level graph by creating list of nodes that are indexable.
   for (const RoomNode& room_node : level_.rooms()) {
-    rooms_.push_back(
-        std::make_shared<Room>(tile_dir_path, room_node.tile_map_path(),
-                               room_node, 16, 24, 1200, 800, renderer_));
+    rooms_.push_back(std::make_shared<Room>(
+        tile_dir_path, room_node.tile_map_path(), room_node, num_rows, num_cols,
+        screen_width, screen_height, renderer_));
   }
 
   // Make current room the room where index = 0.

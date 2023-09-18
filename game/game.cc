@@ -16,8 +16,10 @@ using ::level::Level;
 using ::projectiles::CarrotGunProjectile;
 using ::projectiles::Projectile;
 
-constexpr int kScreenWidth = 1200;
-constexpr int kScreenHeight = 800;
+constexpr int kScreenWidth = 1425;
+constexpr int kScreenHeight = 825;
+constexpr int kTileWidth = 75;
+constexpr int kTileHeight = 75;
 
 bool Game::Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -45,16 +47,21 @@ bool Game::Init() {
   audio_manager_ = std::make_unique<util::AudioManager>();
   audio_manager_->AddAudio("assets/player/ben.mp3");
 
+  // Initialize tile width and height (these are the dimensions of the player
+  // and tiles.)
+  int tile_width_ = kTileWidth;
+  int tile_height_ = kTileHeight;
+
   // Create player.
-  int player_width = 50;
-  int player_height = 50;
-  player_ = std::make_unique<Player>((kScreenWidth - player_width) / 2.0f,
-                                     (kScreenHeight - player_height) / 2.0f,
-                                     player_width, player_height, 5, renderer_);
+  player_ = std::make_unique<Player>((kScreenWidth - kTileWidth) / 2.0f,
+                                     (kScreenHeight - kTileHeight) / 2.0f,
+                                     tile_width_, tile_height_, 5, renderer_);
 
   // Initialize level.
-  level_ = std::make_unique<Level>("assets/tiles/",
-                                   "game/levels/level_graph_1.txt", renderer_);
+  level_ = std::make_unique<Level>(
+      "assets/tiles/", "game/levels/level_graph_1.txt",
+      kScreenHeight / kTileHeight, kScreenWidth / kTileWidth, kScreenWidth,
+      kScreenHeight, renderer_);
 
   is_running_ = true;
   return true;
@@ -95,7 +102,10 @@ void Game::HandleEvents() {
 
   // Check for collisions.
   for (std::unique_ptr<Projectile>& projectile : projectiles_) {
-    if (projectile->CheckCollision(kScreenWidth, kScreenHeight)) {
+    int row = projectile->GetPosition().y / kTileHeight;
+    int col = projectile->GetPosition().x / kTileWidth;
+    if (projectile->CheckCollision(kScreenWidth, kScreenHeight) ||
+        level_->GetCurrentRoom()->GetTileMap()[row][col]->IsWall()) {
       projectile.reset(nullptr);
       projectiles_.erase(
           std::remove(projectiles_.begin(), projectiles_.end(), projectile));

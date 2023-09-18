@@ -15,6 +15,9 @@ class Projectile {
   virtual void Update() = 0;
   virtual void Render() = 0;
 
+  // Get the SDL rectangle.
+  SDL_FRect* GetRect() const;
+
   SDL_FPoint GetPosition() const;
   // Computes the unit vector for direction.
   math::Vector ComputeDirection(SDL_FPoint start_point, SDL_FPoint end_point);
@@ -26,7 +29,7 @@ class Projectile {
   float height_;
   float speed_;
   math::Vector direction_;
-  SDL_FRect rect_;
+  SDL_FRect* rect_;
 };
 
 }  // namespace projectiles

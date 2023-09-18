@@ -18,20 +18,23 @@ Tile::Tile(SDL_Texture* texture, int x, int y, int width, int height,
 
   renderer_ = renderer;
 
-  dest_rect_ = new SDL_FRect();
-  dest_rect_->x = x;
-  dest_rect_->y = y;
-  dest_rect_->w = width;
-  dest_rect_->h = height;
+  rect_ = new SDL_FRect(SDL_FRect{
+      .x = static_cast<float>(x),
+      .y = static_cast<float>(y),
+      .w = static_cast<float>(width),
+      .h = static_cast<float>(height),
+  });
 }
 
 int Tile::GetWidth() const { return width_; }
 
 int Tile::GetHeight() const { return height_; }
 
+SDL_FRect* Tile::GetRect() const { return rect_; }
+
 bool Tile::IsWall() const { return is_wall_; }
 
-void Tile::Render() { SDL_RenderCopyF(renderer_, texture_, NULL, dest_rect_); }
+void Tile::Render() { SDL_RenderCopyF(renderer_, texture_, NULL, rect_); }
 
 bool IsCharWall(char c) {
   // Add chars that represent a wall block that has collision.

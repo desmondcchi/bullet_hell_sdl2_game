@@ -14,6 +14,7 @@ namespace level {
 class Level {
  public:
   Level(absl::string_view tile_dir_path, absl::string_view level_txt_path,
+        int num_rows, int num_cols, int screen_width, int screen_height,
         SDL_Renderer* renderer);
 
   // "Teleport" to room (not restricted by adjacent rooms), given room index.
@@ -44,7 +45,8 @@ class Level {
 
   // Parses through the text file and loads the level graph.
   void LoadLevel(absl::string_view level_txt_path,
-                 absl::string_view tile_dir_path);
+                 absl::string_view tile_dir_path, int num_rows, int num_cols,
+                 int screen_width, int screen_height);
 };
 
 }  // namespace level
