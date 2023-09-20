@@ -14,6 +14,7 @@ cc_library(
     data = ["//assets/player:player_asset"],
     deps = [
         "//entities:entity",
+        "//level",
         "//level:tile",
         "//math:vector",
         "//third_party:sdl2",

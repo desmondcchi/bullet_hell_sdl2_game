@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
+#include "absl/log/check.h"
 #include "entities/player.h"
 #include "level/level.h"
 #include "projectiles/carrot_gun_projectile.h"
@@ -21,27 +22,20 @@ constexpr int kScreenHeight = 1000;
 constexpr int kTileWidth = 100;
 constexpr int kTileHeight = 100;
 
-bool Game::Init() {
-  if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    return false;
-  }
+void Game::Init() {
+  CHECK_GE(SDL_Init(SDL_INIT_EVERYTHING), 0) << "Failed to initialize SDL2.";
 
   window_ =
       SDL_CreateWindow("BenK 47: A Bullet Hell Game", SDL_WINDOWPOS_CENTERED,
                        SDL_WINDOWPOS_CENTERED, kScreenWidth, kScreenHeight, 0);
-  if (!window_) {
-    return false;
-  }
+  CHECK_NE(window_, nullptr) << "Failed to create window.";
 
   renderer_ = SDL_CreateRenderer(
       window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  if (!renderer_) {
-    return false;
-  }
+  CHECK_NE(renderer_, nullptr) << "Failed to create renderer.";
 
-  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-    return false;
-  }
+  CHECK_GE(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048), 0)
+      << "Failed to open SDL_mixer.";
 
   // Add audio files here.
   audio_manager_ = std::make_unique<util::AudioManager>();
@@ -61,7 +55,6 @@ bool Game::Init() {
       kScreenHeight, renderer_);
 
   is_running_ = true;
-  return true;
 }
 
 void Game::GameLoop() {
@@ -103,16 +96,20 @@ void Game::HandleEvents() {
     int col = projectile->GetPosition().x / kTileWidth;
     if (projectile->CheckCollision(kScreenWidth, kScreenHeight) ||
         level_->GetCurrentRoom()->GetTileMap()[row][col]->IsWall()) {
-      projectile.reset(nullptr);
+      projectile.reset();
       projectiles_.erase(
-          std::remove(projectiles_.begin(), projectiles_.end(), projectile));
+          std::find(projectiles_.begin(), projectiles_.end(), projectile));
       return;
     }
   }
 
   // Handle movement.
+  // TODO(@desmondcchi): Check if passing in a function to another function is
+  // the proper way of giving another class access to a member function that
+  // is owned by said class.
   player_->HandleMovement(kScreenWidth, kScreenHeight,
-                          level_->GetCurrentRoom()->GetTileMap());
+                          level_->GetCurrentRoom()->GetTileMap(), level_,
+                          [this]() { ClearProjectiles(); });
 
   for (const std::unique_ptr<Projectile>& projectile : projectiles_) {
     projectile->HandleMovement();
@@ -144,5 +141,12 @@ void Game::Render() {
 }
 
 bool Game::IsRunning() const { return is_running_; }
+
+void Game::ClearProjectiles() {
+  for (std::unique_ptr<Projectile>& projectile : projectiles_) {
+    projectile.reset();
+  }
+  projectiles_.clear();
+}
 
 }  // namespace game

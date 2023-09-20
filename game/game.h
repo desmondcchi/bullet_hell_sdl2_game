@@ -22,7 +22,7 @@ class Game {
   }
 
   // Initializes the game. Returns false if initialization fails.
-  bool Init();
+  void Init();
 
   // Runs the game loop, which processes inputs, handles events, and renders
   // frames.
@@ -60,6 +60,9 @@ class Game {
 
   // Renders frames.
   void Render();
+
+  // Clears all projectiles.
+  void ClearProjectiles();
 };
 
 }  // namespace game

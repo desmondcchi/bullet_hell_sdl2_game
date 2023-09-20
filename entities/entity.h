@@ -12,6 +12,10 @@ class Entity {
   SDL_FPoint GetPosition() const;
   float GetWidth() const;
   float GetHeight() const;
+
+  // Set the position of the entity.
+  void SetPosition(int x, int y);
+  
   virtual void Update() = 0;
   virtual void Render() = 0;
 
