@@ -39,18 +39,19 @@ TEST_F(LevelTest, LoadLevel) {
   EXPECT_EQ(level->GetRoomAt(2)->GetIndex(), 2);
 }
 
-// TEST(LevelTest, MoveAndGetCurrentRoom) {
-//   std::unique_ptr<Level> level = std::make_unique<Level>(
-//       "junk/tilesheet/path", "level/testdata/level_graph.txt", nullptr);
+TEST_F(LevelTest, MoveAndGetCurrentRoom) {
+  std::unique_ptr<Level> level =
+      std::make_unique<Level>("assets/tiles/", "level/testdata/level_graph.txt",
+                              16, 24, 1200, 800, renderer_);
 
-//   EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 0);
-//   level->Move(Level::RoomDirection::kRight);
-//   EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 1);
-//   level->Move(Level::RoomDirection::kUp);
-//   EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 2);
-//   level->Move(Level::RoomDirection::kDown);
-//   EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 1);
-// }
+  EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 0);
+  level->Move(Level::RoomDirection::kRight);
+  EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 1);
+  level->Move(Level::RoomDirection::kUp);
+  EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 2);
+  level->Move(Level::RoomDirection::kDown);
+  EXPECT_EQ(level->GetCurrentRoom()->GetIndex(), 1);
+}
 
 // TEST(LevelTest, GoToRoom) {
 //   // TODO(@LucasDil): Test the GoToRoom() function and check if the current

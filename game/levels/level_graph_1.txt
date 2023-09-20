@@ -4,4 +4,18 @@
 rooms: {
   index: 0
   tile_map_path: "game/levels/room_tile_map_1_0.txt"
+  right: 1
+}
+
+rooms: {
+  index: 1
+  tile_map_path: "game/levels/room_tile_map_1_1.txt"
+  left: 0
+  up: 2
+}
+
+rooms: {
+  index: 2
+  tile_map_path: "game/levels/room_tile_map_1_2.txt"
+  down: 1
 }

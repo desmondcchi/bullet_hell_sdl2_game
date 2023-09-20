@@ -23,7 +23,7 @@ class Level {
   enum RoomDirection { kLeft, kRight, kUp, kDown };
   // Move to a room that is left, right, up, or down, if possible. If not,
   // return false.
-  bool Move(RoomDirection dir);
+  void Move(RoomDirection dir);
 
   // Returns how many rooms there are in the level.
   int GetRoomsSize() const;

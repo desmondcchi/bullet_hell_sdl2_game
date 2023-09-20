@@ -55,7 +55,7 @@ void Level::GoToRoom(int room_number) {
   current_room_ = rooms_[room_number];
 }
 
-bool Level::Move(RoomDirection dir) {
+void Level::Move(RoomDirection dir) {
   bool success = false;
   int left = current_room_->GetLeft();
   int right = current_room_->GetRight();
@@ -90,7 +90,6 @@ bool Level::Move(RoomDirection dir) {
   }
 
   CHECK(success) << "Error: Room does not exist.";
-  return success;
 }
 
 }  // namespace level

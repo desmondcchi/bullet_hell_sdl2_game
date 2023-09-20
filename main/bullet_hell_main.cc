@@ -9,10 +9,7 @@ constexpr int fps = 60;
 int main(int argc, char* argv[]) {
   game::Game& game = game::Game::GetInstance();
 
-  if (!game.Init()) {
-    game.Shutdown();
-    return EXIT_FAILURE;
-  }
+  game.Init();
 
   int frame_delay = 1000 / fps;
   uint64_t frame_start;

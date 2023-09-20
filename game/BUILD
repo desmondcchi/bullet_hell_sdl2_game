@@ -11,10 +11,11 @@ cc_library(
     ],
     deps = [
         "//entities:player",
-        "//level:level",
+        "//level",
         "//projectiles:carrot_gun_projectile",
         "//projectiles:projectile",
         "//third_party:sdl2",
         "//util:audio_manager",
+        "@com_google_absl//absl/log:check",
     ],
 )

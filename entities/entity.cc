@@ -10,4 +10,9 @@ float Entity::GetWidth() const { return width_; }
 
 float Entity::GetHeight() const { return height_; }
 
+void Entity::SetPosition(int x, int y) {
+  position_.x = x;
+  position_.y = y;
+}
+
 }  // namespace entities
